@@ -3,65 +3,44 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Guía de estrategia de Catan</title>
+<title>Guía de estrategia de Catan — los arquetipos de tablero</title>
 <style>
   :root{
-    --bg:#fbf8f3;
-    --fg:#1e2229;
-    --muted:#5b6472;
-    --accent:#b04f1c;
-    --accent-soft:#f6e6d8;
-    --green:#1f6b48;
-    --green-soft:#e0f0e7;
-    --red:#a32c2c;
-    --red-soft:#f8e3e3;
-    --card:#ffffff;
-    --border:#e4ddd2;
-    --code:#f1ece3;
+    --bg:#fbf8f3; --fg:#1e2229; --muted:#5b6472;
+    --accent:#b04f1c; --accent-soft:#f7e9dc;
+    --green:#1f6b48; --green-soft:#e2f1e8;
+    --red:#a32c2c; --red-soft:#f9e5e5;
+    --blue:#1d5a86; --blue-soft:#e2edf6;
+    --card:#ffffff; --border:#e4ddd2; --code:#f1ece3;
     --shadow:0 1px 2px rgba(0,0,0,.05);
   }
   @media (prefers-color-scheme: dark){
     :root{
-      --bg:#13161b;
-      --fg:#e7e9ee;
-      --muted:#9aa3b2;
-      --accent:#f2974f;
-      --accent-soft:#2e2318;
-      --green:#5ecf98;
-      --green-soft:#16281f;
-      --red:#f07777;
-      --red-soft:#2b1919;
-      --card:#1a1e25;
-      --border:#2b313b;
-      --code:#222731;
+      --bg:#13161b; --fg:#e7e9ee; --muted:#9aa3b2;
+      --accent:#f2974f; --accent-soft:#2e2318;
+      --green:#5ecf98; --green-soft:#16281f;
+      --red:#f07777; --red-soft:#2b1919;
+      --blue:#6fb6e8; --blue-soft:#141f2a;
+      --card:#1a1e25; --border:#2b313b; --code:#222731;
       --shadow:none;
     }
   }
 
   *{box-sizing:border-box;}
-  html{-webkit-text-size-adjust:100%;}
+  html{-webkit-text-size-adjust:100%;scroll-behavior:smooth;}
   body{
-    margin:0;
-    background:var(--bg);
-    color:var(--fg);
+    margin:0; background:var(--bg); color:var(--fg);
     font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
-    font-size:18px;
-    line-height:1.65;
-    overflow-wrap:break-word;
+    font-size:18px; line-height:1.65; overflow-wrap:break-word;
   }
-  .wrap{
-    max-width:44rem;
-    margin:0 auto;
-    padding:1.25rem 1.1rem 4rem;
-  }
+  .wrap{max-width:44rem;margin:0 auto;padding:1.25rem 1.1rem 4rem;}
 
-  h1{font-size:1.85rem;line-height:1.2;margin:.2em 0 .3em;letter-spacing:-.01em;}
+  h1{font-size:1.8rem;line-height:1.2;margin:.2em 0 .25em;letter-spacing:-.015em;}
   h2{
-    font-size:1.35rem;line-height:1.25;margin:2.4em 0 .6em;
-    padding-top:.8em;border-top:2px solid var(--border);
-    letter-spacing:-.01em;
+    font-size:1.32rem;line-height:1.25;margin:2.6em 0 .6em;
+    padding-top:.85em;border-top:2px solid var(--border);letter-spacing:-.01em;
   }
-  h3{font-size:1.1rem;margin:1.7em 0 .4em;color:var(--accent);}
+  h3{font-size:1.12rem;margin:1.9em 0 .35em;color:var(--accent);line-height:1.3;}
   h4{font-size:1rem;margin:1.3em 0 .3em;}
   p{margin:.7em 0;}
   ul,ol{padding-left:1.35em;margin:.7em 0;}
@@ -69,589 +48,1109 @@
   li>ul,li>ol{margin:.3em 0;}
   strong{font-weight:650;}
   a{color:var(--accent);}
-  hr{border:0;border-top:1px solid var(--border);margin:2em 0;}
-
+  em{font-style:italic;}
   .sub{color:var(--muted);font-size:1rem;margin-top:0;}
 
   code{
-    background:var(--code);
-    padding:.12em .38em;border-radius:4px;
-    font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
-    font-size:.88em;
+    background:var(--code);padding:.12em .38em;border-radius:4px;
+    font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:.88em;
   }
+  pre{
+    background:var(--code);padding:.85em 1em;border-radius:8px;
+    overflow-x:auto;-webkit-overflow-scrolling:touch;font-size:.85rem;line-height:1.5;
+  }
+  pre code{background:none;padding:0;font-size:1em;}
 
   .box{
-    background:var(--card);
-    border:1px solid var(--border);
-    border-left:4px solid var(--accent);
-    border-radius:8px;
-    padding:.85em 1em;
-    margin:1.2em 0;
-    box-shadow:var(--shadow);
+    background:var(--card);border:1px solid var(--border);border-left:4px solid var(--accent);
+    border-radius:8px;padding:.85em 1em;margin:1.2em 0;box-shadow:var(--shadow);
   }
   .box.key{border-left-color:var(--green);background:var(--green-soft);}
   .box.warn{border-left-color:var(--red);background:var(--red-soft);}
+  .box.vid{border-left-color:var(--blue);background:var(--blue-soft);}
   .box.note{border-left-color:var(--muted);}
   .box p:first-child{margin-top:0;}
-  .box p:last-child, .box ul:last-child, .box ol:last-child{margin-bottom:0;}
+  .box p:last-child,.box ul:last-child,.box ol:last-child{margin-bottom:0;}
   .box .tag{
-    display:block;font-size:.75rem;text-transform:uppercase;
-    letter-spacing:.09em;font-weight:700;color:var(--accent);margin-bottom:.3em;
+    display:block;font-size:.72rem;text-transform:uppercase;letter-spacing:.09em;
+    font-weight:700;color:var(--accent);margin-bottom:.3em;
   }
   .box.key .tag{color:var(--green);}
   .box.warn .tag{color:var(--red);}
+  .box.vid .tag{color:var(--blue);}
   .box.note .tag{color:var(--muted);}
 
-  .scroll{overflow-x:auto;-webkit-overflow-scrolling:touch;margin:1.2em 0;
-          border:1px solid var(--border);border-radius:8px;background:var(--card);}
-  table{border-collapse:collapse;width:100%;font-size:.92rem;}
-  th,td{padding:.5em .65em;text-align:left;border-bottom:1px solid var(--border);white-space:nowrap;}
-  th{background:var(--code);font-weight:650;font-size:.82rem;text-transform:uppercase;letter-spacing:.04em;}
+  /* fichas de arquetipo */
+  .arq{
+    background:var(--card);border:1px solid var(--border);border-radius:10px;
+    padding:.2em 1em .9em;margin:1.4em 0;box-shadow:var(--shadow);
+  }
+  .arq h3{margin-top:.85em;}
+  .arq dl{margin:.6em 0 0;}
+  .arq dt{
+    font-size:.72rem;text-transform:uppercase;letter-spacing:.08em;
+    font-weight:700;color:var(--muted);margin-top:.75em;
+  }
+  .arq dd{margin:.15em 0 0;}
+  .arq dd p{margin:.35em 0;}
+  .arq dd ul{margin:.35em 0;}
+  .arq dt.play{color:var(--green);}
+
+  .scroll{
+    overflow-x:auto;-webkit-overflow-scrolling:touch;margin:1.2em 0;
+    border:1px solid var(--border);border-radius:8px;background:var(--card);
+  }
+  table{border-collapse:collapse;width:100%;font-size:.9rem;}
+  th,td{padding:.5em .65em;text-align:left;border-bottom:1px solid var(--border);white-space:nowrap;vertical-align:top;}
+  th{background:var(--code);font-weight:650;font-size:.8rem;text-transform:uppercase;letter-spacing:.04em;}
   tr:last-child td{border-bottom:0;}
-  td.wrapcell,th.wrapcell{white-space:normal;min-width:11rem;}
+  td.w,th.w{white-space:normal;min-width:10rem;}
   .pips{color:var(--red);letter-spacing:.08em;font-size:.8rem;}
   .num{text-align:right;font-variant-numeric:tabular-nums;}
 
-  nav.toc{
-    background:var(--card);border:1px solid var(--border);
-    border-radius:10px;padding:.9em 1.1em;margin:1.5em 0;
-  }
-  nav.toc .tag{font-size:.75rem;text-transform:uppercase;letter-spacing:.09em;
-               font-weight:700;color:var(--muted);}
+  nav.toc{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:.9em 1.1em;margin:1.5em 0;}
+  nav.toc .tag{font-size:.72rem;text-transform:uppercase;letter-spacing:.09em;font-weight:700;color:var(--muted);}
   nav.toc ol{margin:.5em 0 0;padding-left:1.4em;}
   nav.toc li{margin:.3em 0;}
   nav.toc a{text-decoration:none;}
   nav.toc a:hover{text-decoration:underline;}
 
-  .top{display:inline-block;font-size:.8rem;color:var(--muted);text-decoration:none;margin-top:.6em;}
-
-  footer{margin-top:3em;padding-top:1.2em;border-top:1px solid var(--border);
-         color:var(--muted);font-size:.85rem;}
+  .top{display:inline-block;font-size:.8rem;color:var(--muted);text-decoration:none;margin-top:.8em;}
+  footer{margin-top:3em;padding-top:1.2em;border-top:1px solid var(--border);color:var(--muted);font-size:.85rem;}
 
   @media (max-width:480px){
     body{font-size:17px;}
-    .wrap{padding:1rem .9rem 3rem;}
-    h1{font-size:1.55rem;}
-    h2{font-size:1.2rem;}
+    .wrap{padding:1rem .85rem 3rem;}
+    h1{font-size:1.5rem;}
+    h2{font-size:1.18rem;}
+    .arq{padding:.2em .8em .9em;}
   }
 </style>
 </head>
 <body>
 <div class="wrap">
 
-<h1>Guía completa de estrategia de Catan</h1>
-<p class="sub">Fundación inicial, probabilidad, lectura del tablero y plan de partida.</p>
+<h1>Guía de estrategia de Catan</h1>
+<p class="sub">Los arquetipos de tablero y cómo cambiar de plan según cuál te toca.</p>
 
-<div class="box warn">
-  <span class="tag">Estado de esta guía</span>
-  <p>No pude descargar la transcripción del video de YouTube: <strong>el dominio <code>youtube.com</code> está bloqueado por la política de red de la sesión</strong> (el gateway devuelve <code>403</code> al intentar el túnel HTTPS). Falló tanto <code>yt-dlp</code> como la descarga directa de la página.</p>
-  <p>Por lo tanto, <strong>todo el contenido de abajo proviene de estrategia general de Catan, no del video</strong>. Cuando me pases la transcripción a mano, incorporo lo específico de ese video (y marco explícitamente qué venía de ahí y en qué coincide o difiere de lo que está acá).</p>
+<div class="box vid">
+  <span class="tag">Sobre esta guía</span>
+  <p>Está construida sobre el análisis de un video de estrategia de Catan cuyo autor dice tener <strong>18 años jugando y varios torneos ganados</strong>, y que cita partidas de <em>Premier League</em> y de la <em>final del Campeonato Mundial</em>. Su tesis central: <strong>hay ~37 tipos de tablero de Catan y cada uno tiene una estrategia óptima distinta</strong>. Pude identificar 31 arquetipos nombrados explícitamente; el resto son combinaciones.</p>
+  <p>Los bloques marcados <strong style="color:var(--blue)">DEL VIDEO</strong> son afirmaciones directas del autor. El resto es marco general (probabilidad, costos, fundamentos) que agrego para que las recomendaciones se entiendan y se puedan aplicar.</p>
+</div>
+
+<div class="box note">
+  <span class="tag">Nota sobre la transcripción</span>
+  <p>La transcripción es automática y tiene errores sistemáticos que decodifiqué antes de analizar: <code>or cheap</code> / <code>orbit cheap</code> / <code>RVG</code> / <code>orv</code> = <strong>OWS (ore-wheat-sheep = mineral-trigo-oveja)</strong>; <code>free/pre hack spots</code> = <strong>spots de 3 hexágonos</strong>; <code>weed</code> = wheat (trigo); <code>board</code> = <strong>port</strong> (puerto) en la mayoría de los contextos; <code>sand tile</code> = desierto. La decodificación de OWS se confirma en el minuto 16:50, donde el autor dice literalmente «heavy orv board… strong ore wheat and sheep production».</p>
 </div>
 
 <nav class="toc">
   <span class="tag">Contenido</span>
   <ol>
-    <li><a href="#prob">Probabilidad: los dados y los <em>pips</em></a></li>
-    <li><a href="#recursos">Los cinco recursos y qué valen realmente</a></li>
-    <li><a href="#evaluar">Cómo evaluar un lugar de fundación</a></li>
-    <li><a href="#fundacion">Fundación inicial: los dos primeros asentamientos</a></li>
-    <li><a href="#orden">El orden de colocación (ser P1 vs. ser P4)</a></li>
-    <li><a href="#arquetipos">Los arquetipos de estrategia</a></li>
-    <li><a href="#tablero">Cómo varía la estrategia según el tablero</a></li>
-    <li><a href="#puertos">Puertos: cuándo valen y cuándo son una trampa</a></li>
-    <li><a href="#fases">Las tres fases de la partida</a></li>
-    <li><a href="#ladron">Ladrón, comercio y cartas de desarrollo</a></li>
-    <li><a href="#errores">Errores comunes que hay que evitar</a></li>
-    <li><a href="#checklist">Checklist rápido de fundación</a></li>
+    <li><a href="#tesis">La tesis: el tablero manda</a></li>
+    <li><a href="#notacion">Notación y vocabulario</a></li>
+    <li><a href="#prob">Probabilidad: dados, pips y las tres ideas del video</a></li>
+    <li><a href="#pares">Los dos pares de recursos y la oferta y demanda</a></li>
+    <li><a href="#evaluar">Cómo evaluar un vértice</a></li>
+    <li><a href="#fundacion">Fundación inicial: principios generales</a></li>
+    <li><a href="#posicion">La posición de turno y los tableros que la favorecen</a></li>
+    <li><a href="#arquetipos-recursos">Arquetipos I — abundancia y escasez</a></li>
+    <li><a href="#arquetipos-geo">Arquetipos II — geometría del tablero</a></li>
+    <li><a href="#arquetipos-estruct">Arquetipos III — estructurales y avanzados</a></li>
+    <li><a href="#tabla">Tabla maestra de arquetipos</a></li>
+    <li><a href="#estrategias">Las estrategias, en detalle</a></li>
+    <li><a href="#puertos">Puertos: la jerarquía y la matemática</a></li>
+    <li><a href="#ritmo">Ritmo, radar y bloqueo</a></li>
+    <li><a href="#errores">Errores comunes</a></li>
+    <li><a href="#checklist">Checklist de fundación</a></li>
     <li><a href="#formato">Cómo describirme un tablero</a></li>
   </ol>
 </nav>
 
-<h2 id="prob">1. Probabilidad: los dados y los <em>pips</em></h2>
+<h2 id="tesis">1. La tesis: el tablero manda</h2>
 
-<p>Todo en Catan arranca acá. Se tiran dos dados de seis caras: hay <strong>36 combinaciones equiprobables</strong>, y cada número sale con una frecuencia distinta. Los puntitos rojos que tiene cada ficha numérica (los <em>pips</em>) son exactamente la cantidad de combinaciones que producen ese número.</p>
+<div class="box vid">
+  <span class="tag">Del video</span>
+  <p>«Hay 37 tableros de Catan distintos. Por ejemplo, tableros con ladrillo muy agrupado, o tableros donde los hexágonos de trigo tienen solo números malos, o un tablero donde el primero en colocar tiene una gran ventaja sobre todos los demás. <strong>Ningún tablero es igual a otro.</strong>»</p>
+</div>
+
+<p>Ese es el punto entero. La mayoría de los jugadores tienen <em>una</em> estrategia — casi siempre "mineral-trigo, hago ciudades" — y la aplican a todo. El video argumenta que eso es un error de categoría: la estrategia correcta es una <strong>función del tablero</strong>, y el trabajo de los primeros dos minutos de la partida es <strong>clasificar el tablero</strong> antes de tocar una ficha.</p>
+
+<p>El autor mantiene, eso sí, un ancla: <strong>mineral y trigo son los mejores recursos del juego</strong> — lo llama «fundamental Catan» y lo repite varias veces. Los arquetipos no niegan eso; describen <em>cuándo y cuánto</em> se desvía uno de ese fundamento, y por qué.</p>
+
+<p>Hay un segundo eje, más sutil, que atraviesa todo el video: <strong>el ritmo</strong>. Mineral y trigo <em>aceleran</em> la partida (ciudades → más producción → más cartas → monopolios y PV del mazo). Cuando hay mucho mineral, las partidas son cortas y las estrategias lentas no llegan a tiempo. Cuando hay poco, la partida se estira y estrategias que normalmente serían demasiado lentas — sobre todo el juego de puertos — se vuelven viables. <strong>La velocidad del tablero decide qué estrategias entran en el presupuesto de tiempo.</strong></p>
+
+<a class="top" href="#">↑ arriba</a>
+
+<h2 id="notacion">2. Notación y vocabulario</h2>
+
+<p>El video usa una notación estándar entre jugadores competitivos que conviene adoptar:</p>
 
 <div class="scroll">
 <table>
-  <thead>
-    <tr><th>Nº</th><th>Pips</th><th>Comb.</th><th class="num">Prob.</th><th class="num">1 cada…</th></tr>
-  </thead>
+  <thead><tr><th>Término</th><th class="w">Significado</th></tr></thead>
   <tbody>
-    <tr><td>2</td><td><span class="pips">•</span></td><td>1/36</td><td class="num">2,8 %</td><td class="num">36 tiradas</td></tr>
-    <tr><td>3</td><td><span class="pips">••</span></td><td>2/36</td><td class="num">5,6 %</td><td class="num">18</td></tr>
-    <tr><td>4</td><td><span class="pips">•••</span></td><td>3/36</td><td class="num">8,3 %</td><td class="num">12</td></tr>
-    <tr><td>5</td><td><span class="pips">••••</span></td><td>4/36</td><td class="num">11,1 %</td><td class="num">9</td></tr>
-    <tr><td><strong>6</strong></td><td><span class="pips">•••••</span></td><td>5/36</td><td class="num">13,9 %</td><td class="num">7,2</td></tr>
-    <tr><td><strong>7</strong></td><td>—</td><td>6/36</td><td class="num">16,7 %</td><td class="num">6</td></tr>
-    <tr><td><strong>8</strong></td><td><span class="pips">•••••</span></td><td>5/36</td><td class="num">13,9 %</td><td class="num">7,2</td></tr>
-    <tr><td>9</td><td><span class="pips">••••</span></td><td>4/36</td><td class="num">11,1 %</td><td class="num">9</td></tr>
-    <tr><td>10</td><td><span class="pips">•••</span></td><td>3/36</td><td class="num">8,3 %</td><td class="num">12</td></tr>
-    <tr><td>11</td><td><span class="pips">••</span></td><td>2/36</td><td class="num">5,6 %</td><td class="num">18</td></tr>
-    <tr><td>12</td><td><span class="pips">•</span></td><td>1/36</td><td class="num">2,8 %</td><td class="num">36</td></tr>
+    <tr><td><code>6-9-4</code></td><td class="w">Un <strong>vértice</strong> (lugar de asentamiento) identificado por los tres números de los hexágonos que toca. <code>6-5-9</code> es el vértice legendario: 14 pips.</td></tr>
+    <tr><td><strong>OWS</strong></td><td class="w"><em>Ore-Wheat-Sheep</em>: mineral-trigo-oveja. El motor de ciudades + cartas de desarrollo. Es <em>la</em> estrategia de referencia del juego.</td></tr>
+    <tr><td class="w">Spot de 3 hexágonos</td><td class="w">Vértice que toca tres hexágonos productivos (no costa, no desierto). Los mejores lugares. El video habla todo el tiempo de si quedan o no libres.</td></tr>
+    <tr><td class="w">Spot costero</td><td class="w">Vértice de 2 hexágonos. Menos producción, pero suele venir con puerto. Incluye los vértices que tocan el desierto.</td></tr>
+    <tr><td class="w">Tablero abierto / cerrado</td><td class="w">Si quedan o no spots de 3 hexágonos libres después de la fundación.</td></tr>
+    <tr><td class="w">Number shorting</td><td class="w">Apostar <em>en contra</em> de que un número salga. Ver <a href="#a-shorting">arquetipo 30</a>.</td></tr>
+    <tr><td class="w">Power roll</td><td class="w">Dos hexágonos complementarios con el <em>mismo</em> número. Ver <a href="#power">arquetipo 28</a>.</td></tr>
   </tbody>
 </table>
 </div>
 
-<div class="box key">
-  <span class="tag">La idea central</span>
-  <p>Sumá los pips de los tres hexágonos que toca un asentamiento. Esa suma <strong>es</strong> tu producción esperada. Un asentamiento con <code>P</code> pips produce en promedio <code>P/36</code> cartas por tirada de dados.</p>
-</div>
+<a class="top" href="#">↑ arriba</a>
 
-<h3>Los números de referencia que hay que tener en la cabeza</h3>
+<h2 id="prob">3. Probabilidad: dados, pips y las tres ideas del video</h2>
 
-<p>El tablero base tiene <strong>19 hexágonos</strong> (4 bosque, 4 pastura, 4 sembradío, 3 colina, 3 montaña, 1 desierto) y <strong>18 fichas numéricas</strong>: un 2, un 12, y dos de cada número del 3 al 11 salteando el 7.</p>
-
-<ul>
-  <li><strong>Total de pips del tablero: 58.</strong></li>
-  <li><strong>Promedio por hexágono: 3,22 pips</strong> (58 ÷ 18).</li>
-  <li><strong>Un asentamiento promedio de 3 hexágonos: ~9,7 pips.</strong></li>
-</ul>
-
-<p>Esa cifra, ~9,7, es la vara con la que se mide todo:</p>
+<h3>La base</h3>
+<p>Dos dados de seis caras: <strong>36 combinaciones equiprobables</strong>. Los puntitos rojos de cada ficha (los <em>pips</em>) son exactamente cuántas combinaciones producen ese número.</p>
 
 <div class="scroll">
 <table>
-  <thead><tr><th>Pips del asentamiento</th><th class="wrapcell">Calidad</th></tr></thead>
+  <thead><tr><th>Nº</th><th>Pips</th><th>Comb.</th><th class="num">Prob.</th></tr></thead>
   <tbody>
-    <tr><td>≤ 8</td><td class="wrapcell">Flojo. Solo se justifica por puerto, recurso monopolizado o bloqueo.</td></tr>
-    <tr><td>9–10</td><td class="wrapcell">Del montón. Aceptable como segundo asentamiento.</td></tr>
-    <tr><td>11–12</td><td class="wrapcell">Bueno. Objetivo realista para el primer pick.</td></tr>
-    <tr><td>13–14</td><td class="wrapcell">Muy bueno. Suele ser el mejor lugar del tablero.</td></tr>
-    <tr><td>15+</td><td class="wrapcell">Excepcional (ej. 6-8-5). Se toma casi sin pensar.</td></tr>
+    <tr><td>2</td><td><span class="pips">•</span></td><td>1/36</td><td class="num">2,8 %</td></tr>
+    <tr><td>3</td><td><span class="pips">••</span></td><td>2/36</td><td class="num">5,6 %</td></tr>
+    <tr><td>4</td><td><span class="pips">•••</span></td><td>3/36</td><td class="num">8,3 %</td></tr>
+    <tr><td>5</td><td><span class="pips">••••</span></td><td>4/36</td><td class="num">11,1 %</td></tr>
+    <tr><td><strong>6</strong></td><td><span class="pips">•••••</span></td><td>5/36</td><td class="num">13,9 %</td></tr>
+    <tr><td><strong>7</strong></td><td>—</td><td>6/36</td><td class="num">16,7 %</td></tr>
+    <tr><td><strong>8</strong></td><td><span class="pips">•••••</span></td><td>5/36</td><td class="num">13,9 %</td></tr>
+    <tr><td>9</td><td><span class="pips">••••</span></td><td>4/36</td><td class="num">11,1 %</td></tr>
+    <tr><td>10</td><td><span class="pips">•••</span></td><td>3/36</td><td class="num">8,3 %</td></tr>
+    <tr><td>11</td><td><span class="pips">••</span></td><td>2/36</td><td class="num">5,6 %</td></tr>
+    <tr><td>12</td><td><span class="pips">•</span></td><td>1/36</td><td class="num">2,8 %</td></tr>
   </tbody>
 </table>
 </div>
 
-<h3>Cuánto produce eso en la práctica</h3>
-
-<p>En una partida de 4 jugadores hay ~4 tiradas por ronda. Un asentamiento de 11 pips genera <code>11/36 ≈ 0,31</code> cartas por tirada, o sea <strong>~1,2 cartas por ronda</strong>. Una ciudad en ese mismo lugar duplica: ~2,4 por ronda. Con dos asentamientos de 11 pips arrancás en ~2,4 cartas por ronda, y una casa nueva cuesta 4 cartas. Ese es el ritmo real del juego: <strong>el juego es lento, y las diferencias de 2 o 3 pips se acumulan brutalmente</strong>.</p>
-
-<h3>El 7 es el número más frecuente</h3>
-
-<p>Se olvida todo el tiempo. El 7 sale <strong>una de cada seis tiradas</strong>, más que cualquier otro número. En una partida de ~70 tiradas eso son ~12 activaciones del ladrón. Consecuencias directas:</p>
+<p>El tablero base tiene <strong>19 hexágonos</strong> (4 bosque, 4 pastura, 4 sembradío, 3 colina, 3 montaña, 1 desierto) y <strong>18 fichas</strong>. Datos de referencia:</p>
 <ul>
-  <li>Quedarte con 8 o más cartas en mano es una decisión, no un accidente: estás apostando ~17 % por turno a perder la mitad.</li>
-  <li>Los caballeros son valiosos más allá de los puntos: mueven un ladrón que va a estar puesto mucho tiempo.</li>
-  <li>Sentarte sobre un montón de mineral esperando la ciudad tiene un costo esperado real.</li>
+  <li><strong>58 pips</strong> en total; <strong>3,22</strong> por hexágono en promedio.</li>
+  <li>Un asentamiento de 3 hexágonos promedia <strong>~9,7 pips</strong>. Esa es la vara.</li>
+  <li>11–12 pips = bueno. 13–14 = muy bueno. <code>6-5-9</code> = 14 pips, el techo habitual.</li>
+  <li>Un asentamiento de <code>P</code> pips produce <code>P/36</code> cartas por tirada.</li>
 </ul>
 
-<h3>Dos trampas mentales</h3>
+<h3 id="shorting-prob">Idea 1 — Qué números se pueden "shortear" y cuáles no</h3>
+
+<div class="box vid">
+  <span class="tag">Del video (34:38)</span>
+  <p>«El bosque se podría shortear, si el nueve no sale mucho. Pero <strong>números como 6, 9, 5 y 8 no son buenos para shortear, porque en la mayoría de las partidas salen mucho. Es muy mala idea tratar de shortear un nueve.</strong>»</p>
+</div>
+
+<p>Esto es una regla de varianza, y es correcta. Shortear un número es apostar a que produzca menos de lo esperado. La apuesta es razonable cuando el número es <strong>estructuralmente poco frecuente</strong> (2, 3, 4, 10, 11, 12) y temeraria cuando es frecuente (5, 6, 8, 9), porque ahí la probabilidad de que "falle" durante toda una partida es baja.</p>
+
+<p>Los números seguros para shortear son los de 1–3 pips. Un 4 o un 10 salen 1 de cada 12 tiradas: en 70 tiradas se esperan ~6 activaciones, y una partida donde salga 2 veces es perfectamente común. Un 9 sale 1 de cada 9: esperás ~8, y que salga 2 veces es rarísimo. <strong>Shortear un 9 es apostar contra la estructura del juego.</strong></p>
+
+<h3 id="power-prob">Idea 2 — Power rolls: correlación, no más probabilidad</h3>
+
+<div class="box vid">
+  <span class="tag">Del video (27:30)</span>
+  <p>«Si tenés un asentamiento en ambos recursos — el 6 de mineral y el 6 de trigo — <strong>cada vez que sale un seis estás un paso más cerca de una ciudad</strong>. Imaginate si tenés una ciudad en ese 6 de mineral: prácticamente estás cerca de citear cada vez que sale un 6.»</p>
+</div>
+
+<p>Es importante entender qué hace y qué no hace un power roll. <strong>No aumenta tu producción esperada</strong> — 6 mineral + 6 trigo produce exactamente lo mismo por turno que 6 mineral + 8 trigo. Lo que hace es <strong>correlacionar</strong> tus ingresos: en vez de recibir las cartas de a una y desparramadas, las recibís juntas, en paquetes utilizables.</p>
+
+<p>Eso importa muchísimo por dos razones concretas:</p>
+<ul>
+  <li><strong>Menos exposición al 7.</strong> Si recibís 1 mineral hoy y 1 trigo dentro de tres turnos, tuviste que <em>guardar</em> el mineral tres turnos con un 17 % de riesgo de descarte por turno. Si llegan juntos, construís y no guardás nada.</li>
+  <li><strong>Conversión inmediata en puntos.</strong> Una ciudad son 2 trigo + 3 mineral. Con una ciudad sobre el 6 de mineral y un asentamiento sobre el 6 de trigo, cada 6 te da 2 mineral + 1 trigo: dos tiradas del mismo número te dejan a un paso de la ciudad siguiente.</li>
+</ul>
 
 <div class="box warn">
-  <span class="tag">Cuidado</span>
-  <p><strong>Los dados no tienen memoria.</strong> "Todavía no salió ningún 6" no aumenta la probabilidad de que salga. Cada tirada es independiente. La única lectura legítima de un historial de tiradas es sobre <em>dados físicos sospechosos</em>, no sobre "le toca".</p>
-  <p><strong>Pero la partida es corta.</strong> ~70 tiradas no alcanzan para que la ley de los grandes números te salve. Un 8 puede salir 2 veces en toda la partida. Eso <em>no</em> es un argumento para elegir números malos — es un argumento para <strong>diversificar números</strong>: preferí 6-9-5 (20 pips repartidos) antes que depender de dos fichas del mismo número.</p>
+  <span class="tag">El costo del power roll</span>
+  <p>El video es explícito: <strong>«la gente respeta y teme estos setups, sobre todo la mezcla de mineral-trigo»</strong>, y eso atrae bloqueos. Correlacionar ingresos también significa <strong>correlacionar el riesgo</strong>: un solo ladrón sobre ese 6 te apaga la mitad del motor.</p>
+  <p>La mitigación que da el autor es elegante: <strong>tener dos power rolls</strong>. En su ejemplo tenés el par 6 (mineral+trigo) <em>y</em> el par 3 (mineral+trigo). «Si tenés tanto el seis como el tres, no es tan problemático, porque todavía podés depender del tres si te bloquean el seis.»</p>
 </div>
 
-<a class="top" href="#">↑ arriba</a>
+<h3 id="port-math">Idea 3 — La matemática del puerto 2:1 contra el 3:1</h3>
 
-<h2 id="recursos">2. Los cinco recursos y qué valen realmente</h2>
+<div class="box vid">
+  <span class="tag">Del video (2:44)</span>
+  <p>«Con un puerto 3:1 muchas veces tenés que aguantar como 10 u 11 cartas para poder pagar una ciudad en un solo turno. Con un 2:1 lo hacés con 8 cartas.»</p>
+</div>
+
+<p>La cuenta cierra exactamente. Una ciudad cuesta <strong>2 trigo + 3 mineral</strong>. Si estás comprando todo el mineral con un excedente:</p>
 
 <div class="scroll">
 <table>
-  <thead><tr><th>Construcción</th><th class="wrapcell">Costo</th></tr></thead>
+  <thead><tr><th class="w">Vía</th><th class="w">Cartas necesarias</th><th class="num">Total</th></tr></thead>
   <tbody>
-    <tr><td>Carretera</td><td class="wrapcell">Madera + Ladrillo</td></tr>
-    <tr><td>Asentamiento</td><td class="wrapcell">Madera + Ladrillo + Trigo + Oveja</td></tr>
-    <tr><td>Ciudad</td><td class="wrapcell">2 Trigo + 3 Mineral</td></tr>
-    <tr><td>Carta de desarrollo</td><td class="wrapcell">Trigo + Oveja + Mineral</td></tr>
+    <tr><td class="w">Puerto 2:1</td><td class="w">3 mineral × 2 + 2 trigo</td><td class="num"><strong>8</strong></td></tr>
+    <tr><td class="w">Puerto 3:1</td><td class="w">3 mineral × 3 + 2 trigo</td><td class="num"><strong>11</strong></td></tr>
+    <tr><td class="w">Banco 4:1</td><td class="w">3 mineral × 4 + 2 trigo</td><td class="num"><strong>14</strong></td></tr>
   </tbody>
 </table>
 </div>
 
-<p>De esa tabla salen casi todas las conclusiones estratégicas del juego:</p>
-
-<h3>Trigo — el recurso más universal</h3>
-<p>Es el único que aparece en <strong>tres de las cuatro</strong> construcciones. Nunca sobra. Si tenés que elegir un solo recurso para tener con buen número, elegí trigo. Un asentamiento sin acceso a trigo está roto salvo que tenga un puerto muy bueno.</p>
-
-<h3>Mineral — el más asimétrico</h3>
-<p>Al principio de la partida es casi inútil (no entra en carreteras ni en asentamientos). A partir del turno 10-15 es el recurso que <strong>convierte producción en puntos</strong>: ciudades (2 PV cada una) y cartas de desarrollo. Además solo hay <strong>3 hexágonos de montaña</strong> en todo el tablero, así que es estructuralmente escaso.</p>
-
-<h3>Ladrillo — el cuello de botella temprano</h3>
-<p>También solo <strong>3 hexágonos</strong>. Y se consume en cada carretera y cada asentamiento. Es el recurso que más frecuentemente frena a la gente en la fase de expansión. Si el ladrillo está mal numerado en un tablero, quien lo tenga va a poder cobrar peaje toda la partida.</p>
-
-<h3>Madera — como el ladrillo, pero más abundante</h3>
-<p>4 hexágonos y la misma función (carreteras y asentamientos). Rara vez es el cuello de botella, pero sin ella no te movés.</p>
-
-<h3>Oveja — la más sobrevalorada… y la mejor para puertos</h3>
-<p>Entra solo en asentamientos y cartas de desarrollo. Es el recurso que más se acumula sin uso. Por eso mismo es <strong>el mejor candidato a puerto 2:1</strong>: convertís excedente muerto en lo que te falta. Fundar en un lugar con dos hexágonos de oveja y buenos números sin un puerto de oveja cerca es un error clásico.</p>
-
 <div class="box key">
-  <span class="tag">Regla práctica</span>
-  <p>Los recursos vienen en dos motores: <strong>Madera+Ladrillo = motor de expansión</strong> (te da territorio) y <strong>Mineral+Trigo = motor de puntos</strong> (te da PV). La oveja es el aceite que engrasa a los dos. Una fundación que solo tiene uno de los dos motores necesita un plan explícito (puerto o comercio) para conseguir el otro.</p>
+  <span class="tag">Por qué esto decide entre 2:1 y 3:1</span>
+  <p>El límite de descarte del 7 está en <strong>7 cartas</strong>. Con un 2:1 necesitás llegar a 8 — cruzás el umbral por un turno y listo. Con un 3:1 necesitás llegar a 11, o sea <strong>sentarte varios turnos por encima del límite</strong>, con 17 % de probabilidad de descarte <em>cada</em> turno. La diferencia entre 8 y 11 no es de 3 cartas: es la diferencia entre una exposición puntual y una exposición sostenida.</p>
+  <p>Por eso el video dice que el 2:1 «se vuelve realmente eficiente» en tableros lentos, mientras que el 3:1 sigue siendo un seguro genérico.</p>
 </div>
+
+<h3>Y la trampa mental de siempre</h3>
+<p>Los dados no tienen memoria: «hace rato que no sale el 8» no cambia nada. Pero la partida son ~70 tiradas, no infinitas, así que la varianza es real. Las dos consecuencias correctas son <strong>diversificar números</strong> (10 pips en 6-9-5 valen más que 10 pips concentrados) y <strong>no shortear números frecuentes</strong>.</p>
 
 <a class="top" href="#">↑ arriba</a>
 
-<h2 id="evaluar">3. Cómo evaluar un lugar de fundación</h2>
+<h2 id="pares">4. Los dos pares de recursos y la oferta y demanda</h2>
 
-<p>Los pips son el primer filtro, no el único criterio. Un lugar se evalúa por seis cosas, aproximadamente en este orden:</p>
+<div class="scroll">
+<table>
+  <thead><tr><th class="w">Construcción</th><th class="w">Costo</th></tr></thead>
+  <tbody>
+    <tr><td class="w">Carretera</td><td class="w">Madera + Ladrillo</td></tr>
+    <tr><td class="w">Asentamiento</td><td class="w">Madera + Ladrillo + Trigo + Oveja</td></tr>
+    <tr><td class="w">Ciudad</td><td class="w">2 Trigo + 3 Mineral</td></tr>
+    <tr><td class="w">Carta de desarrollo</td><td class="w">Trigo + Oveja + Mineral</td></tr>
+  </tbody>
+</table>
+</div>
+
+<p>De esos costos sale el modelo mental completo del video: los recursos están <strong>emparejados</strong>.</p>
+
+<ul>
+  <li><strong>Mineral ↔ Trigo</strong> — van juntos en ciudades y cartas de desarrollo. Motor de <em>puntos</em>. Acelera la partida.</li>
+  <li><strong>Madera ↔ Ladrillo</strong> — van juntos en carreteras y asentamientos. Motor de <em>territorio</em>. Da movilidad y ruta más larga.</li>
+  <li><strong>Oveja</strong> — no tiene par. Entra en asentamientos y cartas. Es el lubricante: da flexibilidad y ejército mayor.</li>
+</ul>
+
+<div class="box vid">
+  <span class="tag">Del video (0:23) — el principio central</span>
+  <p>«La razón por la que están vinculados es que las ciudades y las cartas de desarrollo requieren mineral <em>y</em> trigo. Tienen esta conexión interesante, con Catan siendo <strong>un juego de oferta y demanda</strong>: si hay mucho de una cosa, la otra se vuelve más importante.»</p>
+</div>
+
+<p>Esta es la regla que genera la mitad de los arquetipos. <strong>La abundancia de un recurso devalúa a ese recurso y revaloriza a su par</strong>, porque el par es el cuello de botella de la receta compartida:</p>
+
+<div class="scroll">
+<table>
+  <thead><tr><th class="w">Si el tablero tiene…</th><th class="w">Entonces sube de valor…</th></tr></thead>
+  <tbody>
+    <tr><td class="w">Mucho mineral</td><td class="w"><strong>Trigo</strong> (y el puerto de mineral se vuelve jugable)</td></tr>
+    <tr><td class="w">Poco mineral</td><td class="w"><strong>Mineral</strong>, y el juego de puertos 2:1</td></tr>
+    <tr><td class="w">Mucho trigo</td><td class="w"><strong>Mineral</strong> (super comerciable)</td></tr>
+    <tr><td class="w">Mucho ladrillo</td><td class="w"><strong>Madera</strong> — y la ruta más larga se encarece</td></tr>
+    <tr><td class="w">Mucha madera</td><td class="w"><strong>Ladrillo</strong> — quien lo tenga domina las carreteras</td></tr>
+    <tr><td class="w">Mucha oveja</td><td class="w">Cartas de desarrollo y el ejército mayor</td></tr>
+  </tbody>
+</table>
+</div>
+
+<div class="box vid">
+  <span class="tag">Del video (10:33) — la excepción de la oveja</span>
+  <p>«En el tablero de poca oveja, la oveja es <em>un poco</em> más valiosa. Y digo un poco porque <strong>la oveja no se convierte en el nuevo mineral ni en el nuevo trigo</strong>, ni siquiera en tableros donde hay poquísima, porque simplemente no tiene tantos casos de uso.»</p>
+</div>
+
+<p>Es una precisión importante: la ley de oferta y demanda no es simétrica entre recursos. Escalá el efecto por la <em>demanda estructural</em> de cada recurso, y el trigo (que entra en tres de las cuatro construcciones) está arriba de todo, la oveja abajo.</p>
+
+<a class="top" href="#">↑ arriba</a>
+
+<h2 id="evaluar">5. Cómo evaluar un vértice</h2>
+
+<p>Los pips son el primer filtro, no el criterio. El video repetidamente elige spots de <em>menor</em> producción por razones cualitativas. Los criterios, en orden:</p>
 
 <h3>1. Producción (pips)</h3>
-<p>La suma de los tres hexágonos. Es el 50 % de la decisión.</p>
+<p>La suma de los tres hexágonos. Es el piso de la evaluación, no el techo.</p>
 
-<h3>2. Diversidad de recursos</h3>
-<p>Tres recursos distintos &gt; dos recursos &gt; uno solo. Un lugar de 13 pips con tres hexágonos de trigo es peor que uno de 11 pips con trigo, mineral y madera. La diversidad te da autonomía: podés construir sin depender de que alguien te quiera comerciar.</p>
-
-<h3>3. Diversidad de números</h3>
-<p>10 pips repartidos en 6-9-5 son mejores que 10 pips en 6-6-... porque no dependés de una sola ficha ni de un solo ladrón. Además, si te ponen el ladrón encima de tu 6, perdés menos.</p>
-
-<h3>4. Encaje con la escasez del tablero</h3>
-<p>Ver la sección <a href="#tablero">7</a>. Un hexágono de ladrillo con un 5 vale mucho más en un tablero donde el resto del ladrillo tiene 2, 3 y 11, que en uno donde hay ladrillo con 6 y 8 disponible para todos.</p>
-
-<h3>5. Potencial de expansión</h3>
-<div class="box">
-  <span class="tag">Muy subestimado</span>
-  <p>Cuando fundás, mirá <strong>dónde vas a poner el tercer y el cuarto asentamiento</strong>. Un lugar de 12 pips sin salida (rodeado de agua, o con todos los vértices vecinos ya bloqueados o malos) vale menos que uno de 10 pips con dos buenos lugares libres a una o dos carreteras de distancia. Los puntos no salen de tus dos primeras casas: salen de las siguientes cuatro.</p>
+<h3>2. Comerciabilidad de lo que producís</h3>
+<div class="box vid">
+  <span class="tag">Del video (3:55)</span>
+  <p>Sobre un tablero de mucho trigo: «Voy 100 % al <code>6-9-3</code>, porque aunque hay spots como el <code>6-5-9</code> y dos <code>8-5-10</code>, <strong>aunque tiene menos producción, se convierte en el mejor porque es super comerciable, es super usable, y conseguir una ciudad ahí es super fuerte</strong>.»</p>
 </div>
+<p>Producir mucho de algo que nadie quiere es producción muerta. El valor de una carta es lo que podés obtener por ella, y eso depende de qué les falta a los demás — o sea, del tablero.</p>
+
+<h3>3. Aislamiento de los hexágonos</h3>
+<div class="box vid">
+  <span class="tag">Del video (29:53) — muy poco conocido</span>
+  <p>«Si hacés un buen trabajo comerciando, este spot se vuelve todavía mejor, <strong>porque estos hexágonos están bastante aislados</strong>. Este ladrillo de 5 no comparte ningún otro spot de 3 hexágonos, igual que el trigo de 8, porque el desierto lo bloquea. Eso los hace todavía mejores.»</p>
+</div>
+<p>Un concepto excelente y prácticamente ausente del discurso amateur. Un hexágono valioso al que <strong>solo vos podés acceder</strong> vale más que uno igual de bueno compartido con tres vértices más. Cuando evalúes un vértice, mirá cada hexágono y preguntate: <em>¿cuántos otros buenos vértices tocan este mismo hexágono?</em> Si la respuesta es "ninguno", ese hexágono es tuyo toda la partida y te vuelve el proveedor único de ese recurso. El desierto y la costa son los que crean estos aislamientos.</p>
+
+<h3>4. Diversidad de recursos y de números</h3>
+<p>Tres recursos distintos &gt; dos. Y 10 pips en 6-9-5 valen más que 10 pips concentrados: menos dependencia de una ficha y menos vulnerabilidad a un solo ladrón.</p>
+
+<h3>5. Encaje con lo que viene después</h3>
+<p>El video vuelve una y otra vez sobre esto: el primer asentamiento se elige <strong>por lo que se puede combinar con él</strong>. Ver la sección <a href="#fundacion">6</a>.</p>
 
 <h3>6. Valor de bloqueo</h3>
-<p>Si dos lugares te sirven parecido, tomá el que <strong>más le duele al rival</strong> — el que corta la única salida de alguien, o el que le saca el acceso al recurso que le falta. Esto pesa más cuanto más tarde te toca elegir.</p>
-
-<h3>Y un séptimo criterio, negativo: exposición al ladrón</h3>
-<p>Concentrar tu producción en un solo hexágono muy bueno te hace frágil: un caballero te apaga. Diversificar hexágonos es también una defensa.</p>
+<p>Si dos lugares te sirven parecido, tomá el que más le duele al rival. El video lo lleva al extremo en el tablero que favorece a la cuarta posición: «podrías bloquear ese <code>8-4-3</code> yendo vos mismo, y entonces tenés toda la madera y todo el ladrillo del tablero».</p>
 
 <a class="top" href="#">↑ arriba</a>
 
-<h2 id="fundacion">4. Fundación inicial: los dos primeros asentamientos</h2>
+<h2 id="fundacion">6. Fundación inicial: principios generales</h2>
 
-<p>La colocación inicial es, con diferencia, <strong>la decisión más importante de la partida</strong>. Es irreversible y define de qué es capaz tu motor durante las siguientes dos horas.</p>
+<p>La colocación es en serpiente: <strong>1-2-3-4, después 4-3-2-1</strong>. Es la decisión más importante e irreversible de la partida.</p>
 
-<h3>Principio general</h3>
+<h3>Principio 1 — Elegí hacia atrás, no hacia adelante</h3>
 
-<div class="box key">
-  <span class="tag">El objetivo de la fundación</span>
-  <p>Terminar la colocación con: <strong>(a)</strong> ~22 pips o más entre los dos asentamientos, <strong>(b)</strong> acceso a 4 o 5 recursos distintos, <strong>(c)</strong> trigo asegurado, <strong>(d)</strong> al menos un camino claro hacia un tercer asentamiento decente.</p>
+<div class="box vid">
+  <span class="tag">Del video (8:02) — el principio más importante</span>
+  <p>«Es razonable asumir que podés conseguir o el <code>8-10</code> o el <code>8-4</code> de doble trigo en este tablero. Y entonces <strong>tenés que pensar hacia atrás</strong>. El <code>6-4-3</code> es probablemente el spot que mejor combina con esos dos… <strong>Aunque no es uno de los spots de mayor producción, es probablemente el mejor spot con el que podés trabajar para tu segundo asentamiento.</strong>»</p>
 </div>
 
-<h3>El primer asentamiento</h3>
-
-<p>Se elige casi exclusivamente por <strong>calidad bruta</strong>: pips + diversidad. Es tu pick de mayor valor absoluto, y todavía no sabés cómo va a quedar el resto del tablero. Prioridades:</p>
-
+<p>Esto invierte la intuición del jugador promedio. No se trata de "agarro el mejor vértice y después veo". Se trata de:</p>
 <ol>
-  <li>Máximos pips posibles, con <strong>tres recursos distintos</strong>.</li>
-  <li>Que incluya <strong>trigo</strong>, idealmente con buen número.</li>
-  <li>Que incluya al menos uno de los recursos escasos del tablero (mineral o ladrillo bien numerados).</li>
-  <li>Que tenga salida hacia otros vértices buenos.</li>
+  <li><strong>Predecir</strong> qué va a quedar libre para tu segunda elección (¿cuántas elecciones pasan? ¿qué van a agarrar los demás?).</li>
+  <li><strong>Elegir el primero</strong> que mejor <em>combine</em> con esa predicción.</li>
 </ol>
 
-<p>El combo canónico es <strong>trigo + mineral + (madera o ladrillo)</strong> con 6/8 entre ellos, o <strong>madera + ladrillo + trigo</strong> si vas a jugar expansión.</p>
+<p>Y hay un refinamiento todavía mejor, del arquetipo de spots costeros:</p>
 
-<h3>El segundo asentamiento</h3>
+<div class="box vid">
+  <span class="tag">Del video (22:40) — robustez ante la incertidumbre</span>
+  <p>«No sabés si el <code>8-4</code> va a estar abierto. ¿Alguien va a tomar el <code>8-4-3</code> o el <code>8-10-3</code>? Si toman el <code>8-10-3</code>, el <code>8-4</code> se abre. Si toman el <code>8-4-3</code>, el <code>8-10</code> queda abierto. <strong>Así que querés tomar un asentamiento que combine bien con las dos opciones</strong>, para tener la seguridad de que tu setup funciona.</p>
+</div>
 
-<p>Acá cambia la lógica: ya no se elige en el vacío, se elige <strong>para completar</strong>. Preguntas, en orden:</p>
+<p>O sea: no elijas el primer asentamiento que es óptimo <em>si</em> pasa una cosa. Elegí el que es bueno <strong>en las dos ramas del árbol</strong>. Es minimizar el peor caso, no maximizar el mejor.</p>
 
-<ol>
-  <li><strong>¿Qué recursos me faltan?</strong> Si tu primer asentamiento es trigo-mineral-oveja, tu segundo necesita madera y ladrillo o no vas a poder construir nada nunca.</li>
-  <li><strong>¿Qué números me faltan?</strong> Evitá repetir el mismo número que ya tenés (concentra riesgo). Si ya tenés un 6, un segundo lugar con 5-9-4 vale más de lo que sugieren sus pips.</li>
-  <li><strong>¿Hay un puerto que encaje?</strong> Un puerto 2:1 alimentado por producción real de ese recurso es un multiplicador enorme.</li>
-  <li><strong>¿Hacia dónde me expando?</strong> Este asentamiento define tu territorio.</li>
-</ol>
+<h3>Principio 2 — Completar, no repetir</h3>
+<p>El segundo asentamiento no se elige con el mismo criterio que el primero. Preguntas, en orden: ¿qué recursos me faltan? ¿qué números me faltan? ¿hay un puerto que encaje con lo que produzco? ¿hacia dónde me expando?</p>
+
+<p>El video muestra el descarte explícito: sobre un tablero de segundo anillo, «podés arreglar otra cosa como el <code>5-9-10</code> y después colocar el doble trigo. Pero bueno, ahí probablemente tengas solo mineral, trigo y ladrillo. <strong>Así que probablemente no sea tan bueno como tomar el <code>6-4-3</code>.</strong>» — rechaza un vértice de mayor producción porque la <em>combinación</em> resultante queda coja.</p>
+
+<h3>Principio 3 — Las carreteras iniciales son una decisión, no un trámite</h3>
+
+<div class="box vid">
+  <span class="tag">Del video (20:52)</span>
+  <p>«Tené mucho cuidado hacia dónde apuntás tus carreteras. Si arrancás en el <code>8-5-10</code>, probablemente querés apuntar hacia abajo… Si te parece interesante el puerto de mineral, es muy riesgoso, porque alguien puede colocar en el <code>9-10-2</code> y arrancar con una carretera, y eso hace un corte muy bueno hacia ese puerto de mineral para el otro jugador.»</p>
+</div>
+
+<p>Y de ahí sale un arquetipo entero, el de <a href="#roads">carreteras de arranque</a>: si tu segundo asentamiento está sobre madera y ladrillo, <strong>arrancás la partida con una carretera gratis</strong>, y esa carretera puede cortarle el camino a alguien antes de que juegue su primer turno.</p>
+
+<h3>Principio 4 — Objetivo de la fundación</h3>
+<div class="box key">
+  <span class="tag">Meta</span>
+  <p>Terminar con <strong>~22 pips o más</strong> entre los dos asentamientos, acceso a <strong>4 o 5 recursos</strong>, <strong>trigo asegurado</strong>, y <strong>un camino claro</strong> hacia un tercer asentamiento. Si el tablero te obliga a resignar uno de esos, tiene que ser a cambio de algo concreto: un puerto alimentado, un monopolio de recurso, o un aislamiento que nadie te pueda disputar.</p>
+</div>
+
+<a class="top" href="#">↑ arriba</a>
+
+<h2 id="posicion">7. La posición de turno y los tableros que la favorecen</h2>
+
+<p>El video dedica cuatro arquetipos completos a esto, y el criterio es elegante: <strong>lo que define a quién favorece un tablero es cuántos vértices de calidad "premium" tiene.</strong></p>
+
+<div class="box key">
+  <span class="tag">La regla</span>
+  <p>Contá cuántos vértices verdaderamente dominantes hay en el tablero. Si hay <strong>1</strong>, el tablero favorece a P1. Si hay <strong>2</strong>, favorece a P2. Si hay <strong>3</strong>, a P3. Si hay <strong>4</strong>, a P4. Y si no hay <em>ninguno</em>, también favorece a las posiciones tardías.</p>
+  <p>La lógica: si hay tantos spots premium como jugadores por delante tuyo, vos igual conseguís uno — y encima elegís tu segundo asentamiento con más información, así que armás <strong>la mejor combinación</strong>, no el mejor spot suelto.</p>
+</div>
+
+<div class="arq">
+<h3 id="fav1">Tablero que favorece a la 1ª posición</h3>
+<dl>
+  <dt>Señal</dt>
+  <dd>Existe <strong>un</strong> vértice claramente por encima de todo lo demás. En el ejemplo del video, un <code>6-9-10</code> que junta: el mejor mineral, el ladrillo escaso, un buen trigo que combina con ese mineral, tres recursos distintos, opciones de puerto y salidas costeras.</dd>
+  <dt>Lógica</dt>
+  <dd><p>El video: «Este tipo de setup puede ser incluso mejor que un <code>6-5-9</code> en un tablero más balanceado, <strong>porque nadie consigue un spot que pueda competir con vos a ese nivel</strong>. Es el tipo de spot medio injusto.»</p>
+  <p>O sea: el valor de un vértice no es absoluto, es <em>relativo al segundo mejor</em>. Un 12 pips sin competencia vale más que un 14 pips con tres rivales igual de bien parados.</p></dd>
+  <dt class="play">Cómo jugarlo</dt>
+  <dd>Si sos P1, tomalo sin pensar y usá las salidas costeras para el segundo. Si <strong>no</strong> sos P1, asumí que ese jugador va a estar por delante toda la partida: no lo alimentes en comercios, y considerá una estrategia asimétrica (puerto, monopolio de un recurso, ruta más larga) en vez de intentar ganarle en su propio juego.</dd>
+</dl>
+</div>
+
+<div class="arq">
+<h3 id="fav2">Tablero que favorece a la 2ª posición</h3>
+<dl>
+  <dt>Señal</dt>
+  <dd><strong>Dos</strong> vértices premium de valor comparable. En el ejemplo: <code>6-9-4</code> y <code>6-5-9</code>.</dd>
+  <dt>Lógica</dt>
+  <dd>El video: «La ventaja de la segunda posición es que conseguís un spot de primer nivel. Normalmente <strong>solo la primera posición</strong> consigue uno — acá lo conseguís siendo segundo, y eso es muy bueno.» Además elegís sabiendo lo que hizo P1.</dd>
+  <dt class="play">Cómo jugarlo</dt>
+  <dd>Notá el matiz del video sobre por qué P1 elegiría <code>6-9-4</code> antes que <code>6-5-9</code> ahí: «tiene el mejor mineral y tiene oveja para acompañar un spot de trigo a la vuelta». Ambos setups pueden llegar a un buen puerto 3:1. Si sos P2, evaluá qué dejó P1 y quedate con el que combine mejor con lo que va a quedar libre en tu segunda.</dd>
+</dl>
+</div>
+
+<div class="arq">
+<h3 id="fav3">Tablero que favorece a la 3ª posición</h3>
+<dl>
+  <dt>Señal</dt>
+  <dd><strong>Tres</strong> vértices de valor equivalente. En el ejemplo: <code>6-9-4</code>, <code>6-5-9</code> y <code>8-5-4</code>, donde «el <code>8-5-4</code> no es realmente peor que los otros dos».</dd>
+  <dt>Lógica</dt>
+  <dd><p>El razonamiento del video es fino: el <code>8-5-4</code> es tan bueno <em>porque hay muy poco ladrillo en ese tablero</em>, y por cómo está armado, alguien tendría que ir al <code>8-10</code> — y el autor no ve al jugador del <code>6-5-9</code> ni al del <code>6-9-4</code> colocando ahí a la vuelta.</p>
+  <p>«Sos uno de los pocos jugadores en tener ladrillo en esta partida, y eso es super importante.» Y el remate: «<strong>La ventaja de la tercera posición es que podés elegir un mejor spot de combinación a la vuelta.</strong>»</p></dd>
+  <dt class="play">Cómo jugarlo</dt>
+  <dd>Con tres premium, tu primera elección está casi garantizada. Invertí toda tu atención en la <em>segunda</em>: ya viste tres colocaciones y tenés información real sobre qué recurso quedó huérfano.</dd>
+</dl>
+</div>
+
+<div class="arq">
+<h3 id="fav4">Tablero que favorece a la 4ª posición</h3>
+<dl>
+  <dt>Señal</dt>
+  <dd><strong>Cuatro</strong> vértices equivalentes — o, al revés, <strong>ninguno</strong> dominante (ver el tablero final del video: «es un tablero razonablemente malo para la primera posición porque no hay spots OWS claros ni spots de mineral-trigo claros ni <code>6-5-9</code> de alta producción. <strong>Pero eso lo hace mucho mejor para la cuarta posición.</strong>»)</dd>
+  <dt>Lógica</dt>
+  <dd>P4 elige dos veces seguidas con información completa. Si igual va a conseguir un spot decente, la ventaja de elegir primero se evapora y queda solo la ventaja de la coherencia.</dd>
+  <dt class="play">Cómo jugarlo</dt>
+  <dd><p>El ejemplo del video es muy instructivo: P4 se lleva <code>8-4-10</code> — el mejor ladrillo del tablero — más una buena madera. «Nadie más lo tiene, salvo que el tercer jugador vaya al <code>8-4-3</code>. Pero lo que podés hacer es <strong>bloquear ese <code>8-4-3</code> yendo vos mismo</strong>, y entonces tenés toda la madera y todo el ladrillo del tablero, así que podés cerrar la ruta más larga.»</p>
+  <p>Alternativa que ofrece: si esperás que P3 vaya al <code>8-4-3</code>, ir a <code>9-4-11</code> y quedar con setups balanceados en paralelo, «pero seguís teniendo una buena chance de la ruta más larga aunque ellos también la tengan».</p></dd>
+</dl>
+</div>
+
+<a class="top" href="#">↑ arriba</a>
+
+<h2 id="arquetipos-recursos">8. Arquetipos I — abundancia y escasez</h2>
+
+<div class="arq">
+<h3 id="a-highore">1. Tablero de mucho mineral</h3>
+<dl>
+  <dt>Señal</dt><dd>Más mineral que trigo, con buenos números sobre las montañas.</dd>
+  <dt>Lógica</dt>
+  <dd><p>Oferta y demanda pura: si sobra mineral, <strong>el trigo se vuelve el recurso crítico</strong>. «Es super importante conseguir el mejor spot de trigo. El trigo es más comerciable, es más usable, siempre le encontrás un uso.»</p>
+  <p><strong>El puerto de mineral se vuelve jugable</strong> — y esto es una excepción notable, porque el video es tajante: «en general el puerto de mineral no es muy bueno; preferís un puerto de oveja, o de madera, o de trigo, porque hay solo cuatro de esos hexágonos y solo tres de mineral, y en general <strong>estás comerciando <em>para conseguir</em> mineral, no comerciando el mineral hacia afuera</strong>. Pero en este tipo de tablero puede funcionar bien.»</p>
+  <p><strong>Partidas rápidas.</strong> «Mineral y trigo aceleran la partida: conseguís ciudades, más producción, escalás más rápido, y podés sacar monopolios y puntos de victoria del mazo.»</p></dd>
+  <dt class="play">Estrategia</dt>
+  <dd><ul>
+    <li>Ir por <strong>el mejor spot de trigo</strong>, aunque no sea el de más pips.</li>
+    <li><strong>Descartar el juego de puertos lento.</strong> «Un setup de puerto de oveja o de puerto de madera no es lo bastante rápido ni eficiente para competir con estos setups de mineral-trigo.»</li>
+    <li>Más competencia por el <strong>ejército mayor</strong>: hay que balancear. «Si podés ganar la carrera del ejército, vale mucho. Pero a veces construir hasta 10 es el enfoque correcto. Aunque sea una partida más rápida, y tengas una ventana un poco menor, también podés sacar más puntos de victoria.»</li>
+  </ul>
+  <p><strong>Pick del video:</strong> <code>6-9-4</code>, «porque es el mejor spot de trigo y además un spot de producción muy alta. Está también el <code>6-5-9</code>, pero <strong>nunca lo tomaría por encima del <code>6-9-4</code> en esta situación</strong>».</p></dd>
+</dl>
+</div>
+
+<div class="arq">
+<h3 id="a-lowore">2. Tablero de poco mineral</h3>
+<dl>
+  <dt>Señal</dt><dd>Pocos pips sobre las montañas. Uno de los favoritos del autor: «tenés que pensar de manera muy creativa sobre cómo jugar alrededor de la falta de uno de los recursos más importantes».</dd>
+  <dt>Lógica</dt>
+  <dd><p>Contraste explícito con el anterior: <strong>«en los tableros de mucho mineral el juego de puertos no funciona eficientemente. Pero en los de poco mineral la partida se hace más lenta, y ahí sí podés salirte con la tuya con una buena estrategia de puertos, y se vuelve realmente eficiente.»</strong></p>
+  <p>Y ahí entra la matemática de <a href="#port-math">8 cartas vs. 11 cartas</a>: cuando construir ciudades es difícil, la diferencia entre 2:1 y 3:1 se vuelve decisiva.</p></dd>
+  <dt class="play">Estrategia</dt>
+  <dd><ul>
+    <li><strong>Plan A:</strong> si existe, un vértice con <strong>doble mineral</strong> que combine con el trigo. El video señala un <code>8-4-3</code> en la esquina superior izquierda por esto.</li>
+    <li><strong>Plan B:</strong> «la mejor forma de conseguir mineral sin estar sobre mineral es <strong>estar en un puerto 2:1</strong>».</li>
+    <li><strong>Cuidado con acumular mineral en la mano:</strong> «si alguien tiene un monopolio, muchas veces igual lo tira sobre mineral. Así que tener mineral en la mano también es riesgoso, porque la gente va a intentar robarte los minerales. <strong>El mineral es lo que define la partida en este tablero.</strong>»</li>
+  </ul></dd>
+</dl>
+</div>
+
+<div class="arq">
+<h3 id="a-highwheat">3. Tablero de mucho trigo</h3>
+<dl>
+  <dt>Señal</dt><dd>Muchísimo trigo, <strong>pero también algo de mineral</strong>. El video marca la diferencia con el tablero de poco mineral: «esto es más sobre balance. El mineral va a estar en la partida y vas a poder producir algo».</dd>
+  <dt>Lógica</dt>
+  <dd><p>El mineral se vuelve «super fuerte, super comerciable, porque la gente puede hacer algo con él, y encima podés conseguir algo».</p>
+  <p><strong>El detalle del puerto de trigo mal ubicado</strong> — un ejemplo perfecto de por qué la posición importa tanto como el tipo: en ese tablero el puerto de trigo está sobre el ladrillo de 12. «Eso hace que no quieras asentarte en este 12 muy temprano, porque <strong>es muy mala economía, y Catan es un juego económico</strong>.» Un 12 son 1 pip: 1 producción cada 36 tiradas. Ningún puerto compensa eso en la apertura.</p>
+  <p>Por eso «un puerto 3:1 probablemente se vuelve mejor que el puerto de trigo en esta situación».</p></dd>
+  <dt class="play">Estrategia</dt>
+  <dd><p>Ir al mineral, aunque cueste producción. <strong>Pick del video:</strong> <code>6-9-3</code> al 100 %, por encima del <code>6-5-9</code> y de dos <code>8-5-10</code>. «Aunque tiene menos producción, se convierte en el mejor porque es super comerciable, super usable, y conseguir una ciudad ahí es super fuerte.»</p></dd>
+</dl>
+</div>
+
+<div class="arq">
+<h3 id="a-lowwheat">4. Tablero de poco trigo</h3>
+<dl>
+  <dt>Señal</dt><dd>Pocos pips sobre los sembradíos. «Muy parecido al tablero de poco mineral, pero al revés.»</dd>
+  <dt>Lógica</dt>
+  <dd>«El trigo se vuelve más valioso, el mineral menos valioso. Hace todo más difícil de hacer. Es una partida de ritmo lento.» Y ritmo lento = el juego de puertos entra en presupuesto.</dd>
+  <dt class="play">Estrategia</dt>
+  <dd><p>«La mejor estrategia en este tablero es hacer un buen juego de puertos.» Dos caminos: asentarte en un buen spot productor de trigo (el video señala un <code>8-4-3</code> o un <code>6-3-11</code>), o puertear para conseguir trigo durante toda la partida.</p>
+  <p>El ejemplo concreto: «el puerto de madera de arriba es muy bueno. Si conseguís ese <code>8-4-3</code> o el <code>6-3-11</code>, podés ir a ese puerto de madera y usar la madera durante toda la partida». Alternativas: puerto de ladrillo o de oveja.</p>
+  <p>Notá el patrón: <strong>el puerto que te conviene es el del recurso que te sobra</strong>, no el del que te falta.</p></dd>
+</dl>
+</div>
+
+<div class="arq">
+<h3 id="a-highsheep">5. Tablero de mucha oveja</h3>
+<dl>
+  <dt>Señal</dt><dd>Ovejas con 6, 8 y 4. «Siempre hay oveja dando vueltas, que podés puertear hacia recursos más útiles.»</dd>
+  <dt>Lógica</dt>
+  <dd>El puerto 3:1 también se vuelve bueno acá. Y las cartas de desarrollo se abaratan: «si tenés mineral y trigo, siempre hay oveja circulando, así que podés comprar cartas de desarrollo». Consecuencia: <strong>mucha competencia por el ejército mayor</strong>.</dd>
+  <dt class="play">Estrategia</dt>
+  <dd><ul>
+    <li><strong>Preferida del autor: <em>city + road</em></strong> — mineral, trigo, madera y ladrillo, para comprar muchas ciudades y muchas carreteras. Evita pelear el ejército mayor que todos van a disputar.</li>
+    <li>Pero mantené la flexibilidad: «como hay tanta oveja circulando, también podés cambiar al ejército mayor si te parece la mejor estrategia, porque podés simplemente comerciar por la oveja».</li>
+    <li>«Aunque no lo creas, también me gusta un <strong>setup balanceado</strong>: tomás un poco de todo y después te apoyás en un puerto 3:1 o en un puerto de oveja.»</li>
+  </ul></dd>
+</dl>
+</div>
+
+<div class="arq">
+<h3 id="a-lowsheep">6. Tablero de poca oveja</h3>
+<dl>
+  <dt>Señal</dt><dd>Pocos pips en pastura. Ojo: el efecto es <strong>menor</strong> que en los otros recursos — la oveja no se vuelve el nuevo mineral.</dd>
+  <dt>Lógica</dt>
+  <dd><p>Las cartas de desarrollo se encarecen: «aunque tengas mucho mineral y trigo, muchas veces no hay tantas ovejas circulando y tenés que dar comercios decentes para conseguir una».</p>
+  <p><strong>Y de ahí sale el mejor concepto del arquetipo: el problema de ritmo.</strong> «Se ve a las ciudades bajar más temprano. El <em>pacing</em> se vuelve complicado, porque <strong>no podés simplemente comprar una carta de desarrollo para quedarte bajo el radar</strong>, sino que muchas veces tenés que bajar una ciudad porque si no tu mano se traba. Así que a veces tomás la delantera cuando todavía no querías.»</p></dd>
+  <dt class="play">Estrategia</dt>
+  <dd><ul>
+    <li><strong>Ruta comercial más larga.</strong> «Es bastante bueno para la ruta más larga, porque la ruta más larga no necesita tanta oveja.» Y el argumento de radar: «con la ruta más larga podés simplemente bajar una carretera si tenés demasiadas cartas en la mano. <strong>Si bajás una ciudad, la gente dice “eh, bajó una ciudad” y empieza a bloquearte. Pero si bajás una carretera, a la gente no le importa tanto.</strong>»</li>
+    <li><strong>Las cartas de utilidad valen más que nunca:</strong> «aunque las cartas de desarrollo no son tan buenas, las cartas de utilidad son muy buenas. Si levantás un monopolio o un año de la abundancia, se vuelven muy buenas en este tipo de tableros» — porque son la vía para conseguir la oveja que el tablero no da.</li>
+  </ul></dd>
+</dl>
+</div>
+
+<div class="arq">
+<h3 id="a-highbrick">7. Tablero de mucho ladrillo</h3>
+<dl>
+  <dt>Señal</dt><dd>Mucho ladrillo con buenos números. Distinto del tablero de mucha madera-ladrillo (ver #11).</dd>
+  <dt>Lógica</dt>
+  <dd><p>Oferta y demanda otra vez: el ladrillo se devalúa, <strong>la madera se revaloriza</strong>.</p>
+  <p>«Lleva a más competencia por la ruta más larga, porque mucha gente va a poder comprar muchas carreteras. Así que la ruta más larga muchas veces se va a 9, 10, 11 carreteras, y tenés que gastar muchísimo para ganarla. Y si no la ganás, <strong>las carreteras no tienen mucho uso más allá de crear spots de asentamiento</strong>.»</p>
+  <p>Y de ahí la inversión clave: <strong>si todos pelean por carreteras y espacio, nadie pelea por el ejército mayor.</strong></p></dd>
+  <dt class="play">Estrategia</dt>
+  <dd><p><strong>OWS, claramente.</strong> «Hace al OWS todavía mejor, porque no tenés mucha competencia por el ejército mayor, así que lo conseguís mucho más eficientemente. Además, la gente está peleando por todos estos spots y vos estás enfocado en conseguir ciudades y cartas de desarrollo, y nadie se te cruza. <strong>Podés dominar el tablero poniendo ladrones por todos lados.</strong>»</p>
+  <p>Pick: <code>6-9-4</code>. «Probablemente otro va al <code>5-9-10</code>, lo que hace que el 9 de mineral quede bloqueado.» El <code>6-5-9</code> también es interesante por producción + puerto de ladrillo — «<strong>el puerto de ladrillo es super bueno en un tablero de mucho ladrillo</strong>, por supuesto».</p>
+  <p>Matiz: «la mejor estrategia en general es OWS, <strong>sobre todo si el ladrillo está en un spot inútil</strong>. Pero en esta situación está al lado del <code>6-5-9</code>, así que es bastante bueno».</p></dd>
+</dl>
+</div>
+
+<div class="arq">
+<h3 id="a-lowbrick">8. Tablero de poco ladrillo</h3>
+<dl>
+  <dt>Señal</dt><dd>Pocos pips en colinas. El efecto es el opuesto exacto del anterior.</dd>
+  <dt>Lógica</dt>
+  <dd><p>«La madera se vuelve menos valiosa. Hay menos competencia por la ruta más larga, así que es probable que se gane con 5 o 7 carreteras de largo. Eso es super eficiente, y muchas veces podés hacerlo al final de la partida.»</p>
+  <p>«Se compran más cartas de desarrollo. La mayor ventaja de comprar cartas acá es que podés encontrar estas cartas de utilidad — construcción de carreteras, año de la abundancia, monopolio — que <strong>típicamente producen los golpes de ruta más larga al final de la partida</strong>.»</p></dd>
+  <dt class="play">Estrategia</dt>
+  <dd><p><strong>OWS híbrido:</strong> mineral, trigo, oveja y algo de madera. «Y al final usás una construcción de carreteras, un año de la abundancia o un monopolio para robar la ruta al final y <strong>ganar con ejército y ruta al mismo tiempo</strong>.» Es un cierre de 4 PV en un turno.</p>
+  <p>Y el consejo de comercio: <strong>asentate igual sobre ladrillo</strong>, «porque es altamente comerciable — hay tanta madera circulando… Sobre todo en el juego temprano, que es cuando se hacen la mayoría de los comercios, es un recurso de comercio muy bueno, o te permite llegar a los puertos más eficientemente que tus oponentes».</p>
+  <p>Pick del ejemplo: <code>6-9-10</code> — «un setup asesino: máxima producción, 6 y 9 en mineral y trigo, y el 10 como ladrillo escaso».</p></dd>
+</dl>
+</div>
+
+<div class="arq">
+<h3 id="a-highwood">9. Tablero de mucha madera</h3>
+<dl>
+  <dt>Señal</dt><dd>Muchos pips en bosque. <strong>El ladrillo se vuelve mucho más valioso.</strong></dd>
+  <dt>Lógica</dt>
+  <dd>«Es más fácil jugar por la ruta más larga, pero también hay mucha más competencia, dependiendo de cómo esté distribuido el ladrillo.» En el ejemplo, todo el ladrillo está en una esquina — o sea que el ladrillo es <em>el</em> recurso a monopolizar.</dd>
+  <dt class="play">Estrategia</dt>
+  <dd><ul>
+    <li><strong>Dominar el ladrillo.</strong> «Si te colocás en el <code>5-9-10</code>, podés dominar el juego de ladrillo y carreteras, que es la mejor estrategia en un tablero de mucha madera: o hacés comercios por mineral y trigo al inicio, o dominás la ruta más larga vos mismo, llegás a muchos spots, y los demás no van a poder moverse tan móvilmente como vos.»</li>
+    <li><strong>El puerto de madera, incluso sin producir madera.</strong> Éste es un consejo excelente: «es super fuerte estar en un puerto de madera en este tipo de tablero, porque con tanta madera circulando, <strong>aunque no produzcas mucha madera vos mismo, vas a conseguir madera en comercios adicionales</strong>. Por ejemplo, podés preguntar si alguien quiere una de tus cartas, y pedirle que agregue otra madera, que probablemente no necesita igual. Y después las puerteás.»</li>
+  </ul>
+  <p>Es una idea generalizable: <strong>el valor de un puerto no depende solo de tu producción, sino de la abundancia del recurso <em>en la mesa</em></strong>, porque lo abundante es lo que la gente regala en los comercios.</p></dd>
+</dl>
+</div>
+
+<div class="arq">
+<h3 id="a-lowwood">10. Tablero de poca madera</h3>
+<dl>
+  <dt>Señal</dt><dd>Raro, «porque hay cuatro hexágonos de bosque, así que en general no pasa tan seguido».</dd>
+  <dt>Lógica</dt>
+  <dd>«Hay menos competencia por las carreteras, porque nadie arma 8 o 9 carreteras en este tablero. Se juegan más cartas de desarrollo, así que es una partida bastante rápida.»</dd>
+  <dt class="play">Estrategia</dt>
+  <dd>«Podés conseguir la ruta más larga con una cantidad mínima de carreteras al final, probablemente con una carta de utilidad. Las variantes de OWS son muy buenas.» El video lo resume: «es bastante parecido a un tablero de poco ladrillo».</dd>
+</dl>
+</div>
+
+<div class="arq">
+<h3 id="a-heavyows">11. Tablero cargado de mineral-trigo-oveja (OWS pesado)</h3>
+<dl>
+  <dt>Señal</dt><dd>Producción fuerte de los tres a la vez.</dd>
+  <dt>Lógica</dt>
+  <dd><p>«Significa que va a haber más spots OWS, y también que vas a tener más competencia por el ejército mayor. <strong>Lo que hace que los setups de carretera se vuelvan realmente buenos, porque no tenés mucha competencia ahí.</strong> No va a haber muchos jugadores llegando a spots de asentamiento rápido.»</p>
+  <p>Es la inversión especular del tablero de mucho ladrillo: cuando todos van a OWS, el espacio y las carreteras quedan libres.</p></dd>
+  <dt class="play">Estrategia</dt>
+  <dd><p><strong>Setup de carreteras <em>side-by-side</em>.</strong> El video propone un <code>8-5-4</code> combinado con un 9-11, «para hacer un setup de carreteras lado a lado. Podés conectar por el medio, nadie más va a tener muchas carreteras». O combinarlo con spots de madera arriba «porque no necesitás tanto el trigo en esta partida, sobre todo si podés conseguir el puerto 3:1 del <code>8-10</code>».</p>
+  <div class="box warn" style="margin:.7em 0;">
+    <span class="tag">La advertencia del ladrón</span>
+    <p>«Algo de lo que tenés que cuidarte: en el juego tardío va a haber muchísimos ladrones dando vueltas con todos esos caballeros jugándose, así que te pueden robar mucho. <strong>O te protegés de eso, o armás tu setup de manera tal que bloquearte a vos no sea tan eficiente como robarle a otro</strong>, porque ellos sí tienen que preocuparse por los caballeros de los demás volviéndoles y por que alguien les saque el ejército mayor. Eso puede ser tu ventaja.»</p>
+    <p>Es un principio defensivo profundo: <strong>no busques ser invulnerable, buscá ser un objetivo menos atractivo que tus rivales.</strong> El ladrón es un recurso escaso que se asigna al objetivo de mayor valor.</p>
+  </div></dd>
+</dl>
+</div>
+
+<div class="arq">
+<h3 id="a-lowows">12. Tablero con poco mineral-trigo-oveja</h3>
+<dl>
+  <dt>Señal</dt><dd>Pocos spots OWS fuertes, pocas cartas de desarrollo en juego.</dd>
+  <dt>Lógica</dt>
+  <dd>«Hace que el setup fuerte de cartas de desarrollo sea todavía <em>más</em> poderoso, porque podés dominar el ejército mayor.» Escasez de competidores, no de recursos.</dd>
+  <dt class="play">Estrategia</dt>
+  <dd>«Spots como el <code>6-9-4</code> son increíbles. Controlás el mineral-trigo, podés comerciar con esos recursos. Mineral y trigo siguen siendo Catan fundamental, pero <strong>se vuelven todavía mejores</strong>. Es muy difícil ganarle a un jugador que controla el mineral-trigo en este tipo de tableros.»</dd>
+</dl>
+</div>
+
+<div class="arq">
+<h3 id="a-heavywb">13. Tablero cargado de madera-ladrillo</h3>
+<dl>
+  <dt>Señal</dt><dd>Mucha producción de <strong>ambos</strong>. «Son distintos de un tablero de mucho ladrillo, donde tenés muchísimo ladrillo pero no mucha madera. Acá los comparás y hay muchísimas carreteras dando vueltas.»</dd>
+  <dt>Lógica</dt>
+  <dd>«Hace al jugador OWS todavía mejor, porque hay muchísima menos competencia por el ejército mayor, y todos tienen que pelear por los spots abiertos.»</dd>
+  <dt class="play">Estrategia</dt>
+  <dd><p><strong>OWS, con más ventaja de lo normal.</strong> Pero el video ofrece un setup alternativo muy interesante: <strong>bloquear el acceso a madera-ladrillo</strong>. «Podrías ir con algo como <code>6-5-9</code> más <code>8-5-10</code> abajo, donde sos realmente el único jugador con acceso fuerte a madera y ladrillo. Y entonces tenés muchísima movilidad, y quizás conseguís un puerto de madera.»</p></dd>
+</dl>
+</div>
+
+<div class="arq">
+<h3 id="a-lowwb">14. Tablero con poca madera-ladrillo</h3>
+<dl>
+  <dt>Señal</dt><dd>Poca producción de los dos.</dd>
+  <dt>Lógica</dt>
+  <dd>«Menos jugadores yendo por la ruta más larga. Así que si encontrás un spot o un setup que va por madera-ladrillo de manera natural, <strong>tenés un plan dominante de ruta más larga</strong>.»</dd>
+  <dt class="play">Estrategia</dt>
+  <dd>«La dominancia de madera-ladrillo es muy fácil de comerciar. El juego temprano es cuando pasan los comercios, así que madera y ladrillo tienen mucho valor al principio. Podés estacar estos spots de 3 hexágonos que quedan abiertos si sos el jugador fuerte de madera-ladrillo. <strong>Jugá por la ruta más larga en este tipo de tableros.</strong>»</dd>
+</dl>
+</div>
+
+<a class="top" href="#">↑ arriba</a>
+
+<h2 id="arquetipos-geo">9. Arquetipos II — geometría del tablero</h2>
+
+<div class="arq">
+<h3 id="a-cluster">15. Tableros de <em>cluster</em> (recursos agrupados)</h3>
+<dl>
+  <dt>Señal</dt><dd>Un recurso concentrado en una zona: un cluster de trigo en una esquina, un cluster de madera abajo, dos minerales pegados.</dd>
+  <dt>Lógica</dt>
+  <dd><p>«Son medio difíciles de evaluar, porque en general hay <strong>menos spots disponibles de ese recurso específico</strong>.» Agrupar un recurso reduce la cantidad de vértices que lo tocan: menos gente puede acceder a él, pero quien accede lo tiene concentrado y desbalanceado.</p>
+  <p>«La gente que se asienta en estos clusters, como el spot <code>8-5-3</code>, va a tener que comerciar mucho, <strong>porque no podés ganar la partida a puro trigo, a menos que consigas el puerto 2:1</strong>, que está justo al lado.»</p></dd>
+  <dt class="play">Estrategia</dt>
+  <dd><p><strong>Regla general del autor: cluster + puerto.</strong> Si te metés en un cluster, necesitás el puerto 2:1 de ese recurso, o tu producción es intransitable.</p>
+  <div class="box vid" style="margin:.7em 0;">
+    <span class="tag">Del video (5:39) — negociar por un puerto</span>
+    <p>«El jugador del <code>6-4-3</code> también quiere ese puerto de trigo. Así que <strong>tenés que llegar a cierto acuerdo</strong>: por ejemplo, el jugador del <code>6-4-3</code> se queda el puerto de trigo, pero tiene que comerciarte su primer mineral, o no bloquearte el mineral, o algo así. Y entonces vos vas al puerto 3:1, que en realidad es bastante bueno también.»</p>
+  </div>
+  <p>Es de las pocas veces que se ve explicitado que <strong>las posiciones del tablero se negocian, no solo se disputan</strong>. Un puerto contestado se puede resolver con una concesión de recursos en vez de con una carrera de carreteras que los dos pierden.</p>
+  <p><strong>Y la lectura de segundo orden:</strong> si el cluster de trigo lo terminan tocando varios jugadores, el trigo <em>deja</em> de ser valioso. En el ejemplo, tras la secuencia <code>6-4-3</code> → <code>8-5-3</code> → <code>6-5-10</code> → <code>8-10</code>, «entonces el trigo se vuelve menos valioso». Por eso el autor termina prefiriendo el <code>5-9-10</code> como primera elección: «se vuelve muy interesante porque <strong>hay mucha gente con el trigo desbalanceado</strong> — tienen más trigo que mineral, así que van a poder comerciar trigo y comerciar <em>por</em> mineral. Podés armar buenos comercios y comprar tus ciudades y cartas de desarrollo así».</p>
+  <p>O sea: en un tablero de cluster, la jugada más fuerte puede ser <strong>no meterse en el cluster</strong> y posicionarse como la contraparte comercial de todos los que sí se metieron.</p></dd>
+</dl>
+</div>
+
+<div class="arq">
+<h3 id="a-descenter">16. Desierto en el anillo central</h3>
+<dl>
+  <dt>Señal</dt><dd>El desierto en el centro del tablero.</dd>
+  <dt>Lógica</dt>
+  <dd>«Son tableros que realmente detesto, porque <strong>no hay mucho que puedas hacer en las colocaciones que te dé una ventaja injusta sobre tu oponente</strong>.» El desierto central mata los vértices centrales, que normalmente son los mejores.</dd>
+  <dt class="play">Estrategia</dt>
+  <dd><p>Hay una tentación: «algunos spots decentes de 2 hexágonos alrededor del desierto, como el <code>6-5</code>, el <code>5-4</code>, donde te podés asentar construyendo hacia el medio del tablero», porque los spots de 3 hexágonos que quedan después no son tan buenos.</p>
+  <p><strong>Pero el autor la desaconseja:</strong> «es medio riesgoso jugar para ese setup, porque alguien podría colocarse en el <code>6-5</code> con sus asentamientos posteriores, o podría levantar una construcción de carreteras y llegar, o podría hacer lo mismo. Aunque tu plan sea conseguir esos spots, <strong>muchas veces es bastante riesgoso jugar por estas carreteras, porque la gente te sorprende y podés perder esas batallas</strong>.»</p>
+  <p><strong>Recomendación:</strong> «en mi opinión, jugás derecho: jugás el juego OWS. Tomar espacio abierto es una alternativa, y si los conseguís tenés un juego de carreteras fuerte. Y a veces sí tenés que tomar algo de riesgo en Catan para poder ganar una partida.»</p></dd>
+</dl>
+</div>
+
+<div class="arq">
+<h3 id="a-des2">17. Desierto en el segundo anillo</h3>
+<dl>
+  <dt>Señal</dt><dd>El desierto en el anillo intermedio. Otro de los favoritos del autor «porque tenés que poder predecir bastante bien a dónde podés llegar».</dd>
+  <dt>Lógica</dt>
+  <dd><p>«Muchas veces, como primera posición, tu segundo asentamiento a la vuelta va a estar en la costa.» El desierto en el segundo anillo genera vértices de 2 hexágonos con buenos números que sobreviven a la primera ronda de elecciones.</p>
+  <p>«Hay menos spots de 3 hexágonos en el tablero, <strong>así que los tableros se pueden quedar sin spots de 3 hexágonos mucho más fácilmente</strong>.»</p></dd>
+  <dt class="play">Estrategia</dt>
+  <dd><p><strong>Es el arquetipo donde el "pensar hacia atrás" es obligatorio.</strong> «Tu mejor estrategia para la primera posición es encontrar un buen spot costero, y después encontrar el spot que mejor funcione con esas opciones costeras.»</p>
+  <p>Ejemplo desarrollado: si asumís que vas a poder conseguir el <code>8-10</code> o el <code>8-4</code> de doble trigo, entonces el <code>6-4-3</code> es el que mejor combina (te da un OWS fuerte). Y explícitamente rechaza la alternativa: <code>5-9-10</code> + doble trigo te deja «solo con mineral, trigo y ladrillo», que es peor pese a tener más pips.</p></dd>
+</dl>
+</div>
+
+<div class="arq">
+<h3 id="a-desout">18. Desierto en el anillo exterior</h3>
+<dl>
+  <dt>Señal</dt><dd>El desierto en el borde. <strong>«Es el tablero más común que aparece en Catan.»</strong></dd>
+  <dt>Lógica</dt>
+  <dd>«Hay más spots fuertes de 3 hexágonos disponibles, y la gente muchas veces deja abiertos spots centrales. Lleva también a partidas más rápidas porque hay más producción. Mucha gente va a poder conseguir spots de 3 hexágonos, y van a quedar algunos libres. La costa suele estar vacía, así que podés apuntar hacia ella fácilmente, salvo que sea demasiado bueno para ser verdad.»</dd>
+  <dt class="play">Estrategia</dt>
+  <dd><p>«La mejor estrategia en general es simplemente <strong>jugar bien Catan fundamental</strong>. Entender que el mineral y el trigo son valiosos, entender qué es una buena estrategia, entender qué hace ganar una partida. <strong>No hay realmente nada que te engañe en este tablero</strong>, pero también tenés que poder entender qué está pasando. Tomar el mejor spot, como el <code>6-5-9</code> — máxima producción, mejor mineral-trigo — es el camino.»</p>
+  <p>Es el arquetipo "sin trucos": acá el <code>6-5-9</code> sí es la respuesta correcta. Vale la pena notarlo porque en la mayoría de los otros arquetipos <em>no</em> lo es.</p></dd>
+</dl>
+</div>
+
+<div class="arq">
+<h3 id="a-coastal">19. Tablero de spots costeros fuertes</h3>
+<dl>
+  <dt>Señal</dt><dd>Vértices de 2 hexágonos con números muy buenos. Suele venir junto con el desierto en el segundo anillo.</dd>
+  <dt>Lógica</dt>
+  <dd><p>«Si sos primera o segunda posición, probablemente querés poder trabajar con uno de esos spots, porque el mejor setup que creás es probablemente uno que combine bien con ellos.»</p>
+  <p><strong>Consecuencia de segundo orden:</strong> «puede llevar a mucho espacio abierto si muchos jugadores van a estos spots costeros temprano». Si todos se van a la costa, quedan spots centrales de 3 hexágonos huérfanos durante muchos turnos.</p></dd>
+  <dt class="play">Estrategia</dt>
+  <dd>Acá vive el principio de <strong>robustez ante las dos ramas</strong> (ver <a href="#fundacion">sección 6</a>): elegí el primer asentamiento que funcione tanto si te queda el <code>8-4</code> como si te queda el <code>8-10</code>. Y considerá explotar el espacio central que los demás van a dejar abierto.</dd>
+</dl>
+</div>
+
+<div class="arq">
+<h3 id="roads">20. Tablero de "carreteras de arranque"</h3>
+<dl>
+  <dt>Señal</dt><dd>Mucha madera y ladrillo <strong>pegados entre sí</strong>, de forma que hay varios vértices que tocan ambos.</dd>
+  <dt>Lógica</dt>
+  <dd><p>«Tu segundo asentamiento te da los recursos iniciales del lugar donde colocás. Así que <strong>si arrancás con una carretera, podés cortar gente</strong>. Tenés que estar muy atento a eso, sobre todo si no arrancás con madera-ladrillo, o si sos tercera o cuarta posición.»</p>
+  <p>En el ejemplo enumera cinco vértices que dan carretera de arranque: <code>5-9-10</code>, <code>5-4-10</code>, <code>8-4-10</code>, <code>6-5-11</code>, <code>6-9-3</code>.</p></dd>
+  <dt class="play">Estrategia</dt>
+  <dd><ul>
+    <li><strong>Contá los vértices que dan carretera de arranque antes de colocar</strong>, tuyos y ajenos. Un rival con carretera gratis puede cerrarte un camino antes de que jueges tu primer turno.</li>
+    <li>«Tené mucho cuidado hacia dónde apuntás tus carreteras.» Un puerto atractivo puede ser una trampa si alguien puede cortarte con su carretera gratis.</li>
+    <li><strong>Los spots OWS combinan especialmente bien acá:</strong> «si tenés un spot OWS, hay muchos spots que van bien con eso, porque podés conseguir los cinco recursos con OWS + madera + ladrillo».</li>
+  </ul></dd>
+</dl>
+</div>
+
+<a class="top" href="#">↑ arriba</a>
+
+<h2 id="arquetipos-estruct">10. Arquetipos III — estructurales y avanzados</h2>
+
+<div class="arq">
+<h3 id="a-ports">21. Tablero de puertos 2:1 fuertes</h3>
+<dl>
+  <dt>Señal</dt><dd>Mucha cantidad de un recurso <strong>con su puerto 2:1 al lado</strong>. El autor lo presenta como algo que «va en contra del Catan fundamental».</dd>
+  <dt>Lógica</dt>
+  <dd>El ejemplo: un <code>8-5-10</code> que tiene un puerto de madera y un puerto de oveja coincidiendo con los mismos recursos que produce. Se vuelve la mejor estrategia del tablero «especialmente porque no hay un spot OWS realmente dominante».</dd>
+  <dt class="play">Estrategia</dt>
+  <dd><p>Tomar el par producción+puerto, incluso resignando el "mejor" vértice nominal. El video advierte sobre las carreras: «está el <code>8-10-11</code>, que es bastante bueno, pero si sacás el <code>8-5-10</code> no quedan muchos buenos spots de oveja. También está el <code>6-9-10</code>, que quizás corre por el puerto de oveja, así que hay que estar atento».</p>
+  <p>Y una nota sobre el orden de elección: «capaz no va en primera posición; capaz va segunda o tercera. Pero es un spot de producción muy alta, y si conseguís esos puertos, es un spot muy bueno igual».</p></dd>
+</dl>
+</div>
+
+<div class="arq">
+<h3 id="a-openclosed">22–23. Tablero abierto y tablero cerrado</h3>
+<dl>
+  <dt>Señal</dt>
+  <dd><p>«Cuando ves el tablero y arranca la partida, no sabés automáticamente si va a ser abierto o cerrado. <strong>Depende de cómo juegue cada uno.</strong> Pero hay un par de cosas que podés mirar para determinarlo.»</p>
+  <ul>
+    <li><strong>Cómo colocan los demás.</strong> En el ejemplo, negro y amarillo abren dos spots de 3 hexágonos al no bloquear el 11 de madera: con <code>5-3-11</code> y <code>9-10-11</code> quedan libres el <code>6-5-12</code> y el <code>6-3-11</code>. Colocando distinto, no queda ninguno.</li>
+    <li><strong>La geometría del tablero.</strong> «Este <code>8-4-3</code> no bloquea muchos otros spots de 3 hexágonos, así que es menos probable que genere una situación cerrada de lo que la generarían otros tableros.»</li>
+  </ul></dd>
+  <dt class="play">Estrategia</dt>
+  <dd><div class="box key" style="margin:.7em 0;">
+    <span class="tag">La regla</span>
+    <p><strong>Si tenés mucha madera y ladrillo, querés un tablero ABIERTO</strong> — «como jugador de madera-ladrillo, es más probable que te metas en esos spots de 3 hexágonos y ganes las carreras hacia ellos».</p>
+    <p><strong>Si sos jugador OWS, querés un tablero CERRADO</strong> — «querés que la gente no consiga esos spots de 3 hexágonos de alto valor».</p>
+  </div>
+  <p>Y lo crucial: <strong>abierto o cerrado no es una propiedad del tablero, es un resultado que vos podés influir con tu colocación.</strong> El video lo demuestra en el tablero balanceado (#31): tomar el <code>5-9-10</code> en vez del <code>6-5-9</code> deja abiertos el <code>5-6-11</code> y el <code>6-9-12</code>. Si tu setup es de madera-ladrillo, colocar de forma que el tablero quede abierto <em>es parte de tu estrategia</em>.</p></dd>
+</dl>
+</div>
+
+<div class="box note">
+  <span class="tag">Arquetipos 24–27</span>
+  <p>Los cuatro arquetipos que favorecen a cada posición de turno están tratados juntos en la <a href="#posicion">sección 7</a>, porque comparten un único criterio de diagnóstico.</p>
+</div>
+
+<div class="arq">
+<h3 id="power">28. Power rolls / recursos coordinados</h3>
+<dl>
+  <dt>Señal</dt><dd>Dos hexágonos complementarios con el <strong>mismo número</strong>: 6 mineral + 6 trigo, u 8 madera + 8 ladrillo.</dd>
+  <dt>Lógica</dt>
+  <dd>Ver el <a href="#power-prob">análisis de probabilidad</a>. No aumenta la producción esperada; <strong>correlaciona</strong> los ingresos en paquetes utilizables, lo que reduce la exposición al 7 y acelera la conversión en puntos.</dd>
+  <dt class="play">Estrategia</dt>
+  <dd><ul>
+    <li><strong>Mineral+trigo:</strong> cada tirada te acerca a una ciudad. Con una <em>ciudad</em> sobre el mineral, casi citeás por tirada.</li>
+    <li><strong>Madera+ladrillo:</strong> el ejemplo de naranja en el video — «cada vez que sale el 8 conseguís un ladrillo y bajás una carretera, y cuando te asentás en ese puerto de madera <strong>duplicás tu ladrillo</strong>».</li>
+    <li><strong>Redundancia:</strong> tener también el par de un segundo número (el 3 además del 6) neutraliza el bloqueo.</li>
+    <li><strong>Sumá oveja:</strong> «con estos setups querés tener buena oveja. Asentarte en ese <code>4-11</code> o <code>11-12</code> mejora el setup, porque <strong>te volvés mucho más flexible si además podés comprar cartas de desarrollo</strong> al lado de comprar muchas ciudades».</li>
+  </ul></dd>
+</dl>
+</div>
+
+<div class="arq">
+<h3 id="a-rare">29. Tablero de "spots de valor escaso"</h3>
+<dl>
+  <dt>Señal</dt><dd>Ningún recurso es abundante — ladrillo mediano, mineral mediano, trigo mediano — <strong>pero existe un vértice que junta los tres</strong>.</dd>
+  <dt>Lógica</dt>
+  <dd><p>«Si tomás este <code>8-5-10</code>, tenés mucho valor de los tres recursos, y se convierte en un spot increíble. Esto normalmente va a la primera posición. Incluso si hubiera un <code>6-5-9</code> en este tablero, igual lo tomarías.»</p>
+  <p><strong>Y la afirmación más contraintuitiva del video:</strong> «esto va por encima del <code>6-9-3</code> de OWS. Este es sin dudas mejor pick que el <code>6-9-3</code>, <strong>aunque muchos jugadores irían al <code>6-9-3</code> pensando “eh, OWS, esto es mejor”</strong>.»</p>
+  <p>Y el refuerzo por aislamiento (ver <a href="#evaluar">sección 5</a>): esos hexágonos «están bastante aislados — el ladrillo de 5 no comparte ningún otro spot de 3 hexágonos, igual que el trigo de 8, porque el desierto lo bloquea. Eso los hace todavía mejores».</p></dd>
+  <dt class="play">Estrategia</dt>
+  <dd>Tomar el vértice de valor escaso incluso contra el reflejo de OWS. «Aunque no consigas un setup natural con esto, igual podés comerciar hacia los recursos que te faltan. <strong>Si hacés un buen trabajo comerciando, este spot se vuelve todavía mejor.</strong>» Complementos: oveja a la vuelta, o un buen spot de madera para jugar <em>city + road</em>.</dd>
+</dl>
+</div>
+
+<div class="arq">
+<h3 id="a-shorting">30. Number shorting</h3>
+<dl>
+  <dt>Señal</dt><dd>Un recurso que <em>parece</em> abundante, pero cuya abundancia depende de <strong>un número poco frecuente</strong>. Concepto tomado de la final del Campeonato Mundial.</dd>
+  <dt>Lógica</dt>
+  <dd><p>«Number shorting significa <strong>apostar en contra de que un número salga</strong>. En este tablero es el 10 de trigo. Porque si el 10 no sale mucho, este <code>8-4-3</code> se vuelve increíblemente valioso, ya que <strong>solo vos vas a tener el trigo</strong>.»</p>
+  <p>«Así que incluso en un tablero que tiene producción de trigo promedio o hasta por encima del promedio, <strong>podés convertirte en el único proveedor de trigo del tablero, y eso es super valioso porque la gente no se lo espera</strong>.»</p></dd>
+  <dt class="play">Estrategia</dt>
+  <dd><ul>
+    <li><strong>Solo shorteá números de 1–3 pips</strong> (2, 3, 4, 10, 11, 12). Ver la <a href="#shorting-prob">Idea 1</a>: shortear un 9 es apostar contra la estructura del juego.</li>
+    <li><strong>Buscá que la apuesta tenga un piso.</strong> El video lo señala explícitamente: «incluso si el 10 sale, este sigue siendo un setup decente, porque lo podés combinar con el puerto de trigo, o ir al 3:1 si alguien toma el <code>6-3</code>». Es riesgo-recompensa, pero <em>no</em> es todo o nada.</li>
+    <li><strong>Cuándo usarlo:</strong> «si no tenés ideas alternativas en un tablero, igual podés encontrar un setup que podría ganar en un escenario específico». Es la jugada de quien elige tarde y no tiene un premium disponible.</li>
+    <li>El premio no es solo producción: es <strong>poder de negociación</strong>. «Tenés un potencial de comercio enorme si esto pasa, y después podés comerciar por esos minerales y conseguir ciudades así.»</li>
+  </ul></dd>
+</dl>
+</div>
+
+<div class="arq">
+<h3 id="a-balanced">31. Tablero balanceado</h3>
+<dl>
+  <dt>Señal</dt><dd>«Ningún recurso se destaca realmente en términos de ser malo o de ser abundante.» Es mucho menos claro qué hacer.</dd>
+  <dt>Lógica</dt>
+  <dd><p>El problema: sin escasez que explotar, no hay dominancia posible. Y en el ejemplo los puertos tampoco ayudan — «no querés el puerto de mineral porque no querés regalar tus minerales, querés conseguir más. Y el puerto de trigo no es interesante porque es probable que los otros tomen los spots de trigo antes de que vuelvas. <strong>Que no haya puerto 3:1 es un problema y te deja con un ratio desbalanceado.</strong>»</p></dd>
+  <dt class="play">Estrategia</dt>
+  <dd><p>Acá el video da su lección más avanzada: <strong>si el tablero no te ofrece una ventaja, creala vos.</strong></p>
+  <ol>
+    <li><strong>Number shorting sobre un número flojo.</strong> «Está el <code>8-4-3</code>, que hace lo mismo, pero <em>podrías shortear el 4 de mineral</em>. Si solo sale el 5 y no muchos 4, esto es increíblemente valioso.»</li>
+    <li><strong>Elegir para abrir el tablero.</strong> «¿Qué pasa si tomás el <code>5-9-10</code>? Abrís espacio hacia el <code>6-5</code> y el 11. Si tomás el <code>5-9-10</code> en vez del <code>6-5-9</code>, abrís espacio en el <code>5-6-11</code> y el <code>6-9-12</code>. <strong>Estás creando un tablero abierto en vez de uno cerrado.</strong> Es una forma creativa de pensarlo, porque ahora estás tomando buenos spots de madera-ladrillo.» Y entonces: «si podés crear una carrera en el centro del tablero, podés ganar spots de 3 hexágonos y conseguir producción de esa manera, y el puerto 3:1 se vuelve mejor también».</li>
+  </ol>
+  <div class="box vid" style="margin:.8em 0;">
+    <span class="tag">Caso real — Premier League (33:05)</span>
+    <p>Primera posición tomó <code>5-9-10</code> y después <code>4-9-11</code> a la vuelta, creando aperturas en el <code>9-10-2</code> y el <code>10-3-11</code>. «Podrían perder la carrera contra otro jugador, <strong>pero el otro jugador que les corre por el <code>10-3-11</code> no tiene nada de ladrillo</strong>, así que estás en una posición decente para ganar esa carrera. Y quizás contra el otro jugador que no tiene nada de oveja — pero quizás ellos comercian entre sí y ahí perdés las dos carreras, <strong>así que capaz tenés que cerrar un trato</strong>.»</p>
+    <p>«Un beneficio adicional de jugarlo así es que abrís el <code>5-4</code>. Es un spot muy poderoso, duplicás tu producción de mineral de esa forma.»</p>
+  </div>
+  <p>Fijate el nivel de razonamiento: no solo abre carreras, sino que evalúa <strong>si puede ganarlas</strong> mirando de qué recurso carece cada rival, y anticipa que dos rivales podrían aliarse contra él.</p></dd>
+</dl>
+</div>
+
+<div class="arq">
+<h3 id="a-combo">Y el último: las combinaciones</h3>
+<dl>
+  <dt>Señal</dt><dd>Casi todos los tableros reales.</dd>
+  <dt>Lógica</dt>
+  <dd>El video cierra con un ejercicio de clasificación y la conclusión: «<strong>no siempre es un solo tipo de tablero. Es un tablero grande, así que hay muchas cosas pasando a la vez.</strong>»</dd>
+  <dt class="play">Cómo se clasifica</dt>
+  <dd><p>La clasificación que hace el autor de su tablero final es el modelo a imitar. Va capa por capa:</p>
+  <ul>
+    <li><strong>Recursos:</strong> «diría que es un tablero de mucho ladrillo, porque hay mucho ladrillo circulando. Hay madera decente, pero sigue siendo un tablero de mucho ladrillo.»</li>
+    <li><strong>Geometría:</strong> «hay un cluster de trigo». Y «es un tablero de desierto en el anillo exterior, así que la primera posición probablemente pueda conseguir un spot de 3 hexágonos a la vuelta».</li>
+    <li><strong>Balance:</strong> «es bastante mediano para todo lo demás, así que es un tablero balanceado en ese sentido».</li>
+    <li><strong>Shorting:</strong> «la madera se podría shortear si el 9 no sale mucho — <strong>pero 6, 9, 5 y 8 no son buenos para shortear</strong>». O sea: identificó la oportunidad y la descartó por probabilidad.</li>
+    <li><strong>Posición:</strong> «razonablemente malo para la primera posición, porque no hay spots OWS claros ni <code>6-5-9</code> de alta producción. Pero eso lo hace mucho mejor para la cuarta posición.»</li>
+    <li><strong>Puertos:</strong> «los 2:1 más interesantes son los de oveja, madera y ladrillo».</li>
+    <li><strong>Power rolls:</strong> «cada vez que sacás un 4, si estás asentado en el 4 de mineral y el 4 de trigo, te estás acercando a una ciudad».</li>
+  </ul>
+  <p>Siete capas, en ese orden. Ese es el procedimiento completo.</p></dd>
+</dl>
+</div>
+
+<a class="top" href="#">↑ arriba</a>
+
+<h2 id="tabla">11. Tabla maestra de arquetipos</h2>
+
+<p>Para consultar en la mesa. Buscá la señal, leé la estrategia.</p>
+
+<div class="scroll">
+<table>
+  <thead><tr><th class="w">Arquetipo</th><th class="w">Efecto clave</th><th class="w">Estrategia</th></tr></thead>
+  <tbody>
+    <tr><td class="w"><a href="#a-highore">Mucho mineral</a></td><td class="w">Sube el trigo. Partida rápida.</td><td class="w">Mejor spot de trigo. Nada de juego lento de puertos. El puerto de mineral se vuelve jugable.</td></tr>
+    <tr><td class="w"><a href="#a-lowore">Poco mineral</a></td><td class="w">Sube el mineral. Partida lenta.</td><td class="w">Doble mineral si existe; si no, puerto 2:1. Cuidado con el monopolio de mineral.</td></tr>
+    <tr><td class="w"><a href="#a-highwheat">Mucho trigo</a></td><td class="w">Sube el mineral (comerciable).</td><td class="w">Ir al mineral aunque cueste pips. Ojo con puertos sobre números malos.</td></tr>
+    <tr><td class="w"><a href="#a-lowwheat">Poco trigo</a></td><td class="w">Sube el trigo. Todo más difícil.</td><td class="w">Juego de puertos con el recurso que te sobra (madera, ladrillo, oveja).</td></tr>
+    <tr><td class="w"><a href="#a-highsheep">Mucha oveja</a></td><td class="w">Cartas de desarrollo baratas → mucha competencia por ejército.</td><td class="w"><em>City + road</em>. Alternativa: balanceado con puerto 3:1.</td></tr>
+    <tr><td class="w"><a href="#a-lowsheep">Poca oveja</a></td><td class="w">Cartas caras. No podés esconderte.</td><td class="w">Ruta más larga. Cartas de utilidad (mono, año de abundancia) suben mucho.</td></tr>
+    <tr><td class="w"><a href="#a-highbrick">Mucho ladrillo</a></td><td class="w">Sube la madera. Ruta más larga carísima (9–11 carreteras).</td><td class="w"><strong>OWS</strong>: todos pelean espacio, el ejército mayor queda libre.</td></tr>
+    <tr><td class="w"><a href="#a-lowbrick">Poco ladrillo</a></td><td class="w">Ruta más larga barata (5–7 carreteras).</td><td class="w">OWS híbrido + robar la ruta al final con carta de utilidad. Ejército y ruta juntos.</td></tr>
+    <tr><td class="w"><a href="#a-highwood">Mucha madera</a></td><td class="w">Sube el ladrillo.</td><td class="w">Monopolizar el ladrillo y dominar carreteras. Puerto de madera aunque no produzcas madera.</td></tr>
+    <tr><td class="w"><a href="#a-lowwood">Poca madera</a></td><td class="w">Poca competencia por carreteras. Raro.</td><td class="w">Variantes de OWS. Ruta más larga barata al final.</td></tr>
+    <tr><td class="w"><a href="#a-heavyows">OWS pesado</a></td><td class="w">Todos van a ciudades → espacio libre.</td><td class="w">Setup de carreteras <em>side-by-side</em>. Cuidado con la lluvia de caballeros.</td></tr>
+    <tr><td class="w"><a href="#a-lowows">OWS pobre</a></td><td class="w">Pocos rivales por el ejército.</td><td class="w">Controlar el mineral-trigo. Dominar el ejército mayor.</td></tr>
+    <tr><td class="w"><a href="#a-heavywb">Madera-ladrillo pesado</a></td><td class="w">Todos pelean espacio.</td><td class="w">OWS con ventaja extra. O bloquear el acceso a madera-ladrillo.</td></tr>
+    <tr><td class="w"><a href="#a-lowwb">Madera-ladrillo pobre</a></td><td class="w">Nadie va por la ruta.</td><td class="w">Ruta más larga dominante. Madera y ladrillo como moneda de cambio temprana.</td></tr>
+    <tr><td class="w"><a href="#a-cluster">Cluster</a></td><td class="w">Menos vértices tocan ese recurso.</td><td class="w"><strong>Cluster + puerto 2:1</strong>, o quedarse afuera y ser la contraparte comercial. Negociar el puerto.</td></tr>
+    <tr><td class="w"><a href="#a-descenter">Desierto central</a></td><td class="w">Mata los vértices centrales.</td><td class="w">Jugar OWS derecho. Las carreras por spots de 2 hexágonos son riesgosas.</td></tr>
+    <tr><td class="w"><a href="#a-des2">Desierto 2º anillo</a></td><td class="w">Pocos spots de 3 hexágonos; costa fuerte.</td><td class="w">Predecir el spot costero y elegir el primero que combine con él.</td></tr>
+    <tr><td class="w"><a href="#a-desout">Desierto exterior</a></td><td class="w">El más común. Alta producción.</td><td class="w">Catan fundamental. Acá el <code>6-5-9</code> sí es la respuesta.</td></tr>
+    <tr><td class="w"><a href="#a-coastal">Spots costeros</a></td><td class="w">Vértices de 2 hexágonos muy buenos.</td><td class="w">Elegir el primero que funcione en <em>las dos</em> ramas. Explotar el centro que quede abierto.</td></tr>
+    <tr><td class="w"><a href="#roads">Carreteras de arranque</a></td><td class="w">Madera+ladrillo pegados → carretera gratis.</td><td class="w">Contar quién arranca con carretera. Apuntar con cuidado. OWS combina bien.</td></tr>
+    <tr><td class="w"><a href="#a-ports">Puertos 2:1 fuertes</a></td><td class="w">Recurso abundante + su puerto al lado.</td><td class="w">Tomar el par producción+puerto aunque no sea el "mejor" vértice.</td></tr>
+    <tr><td class="w"><a href="#a-openclosed">Abierto / cerrado</a></td><td class="w">Depende de cómo coloquen todos.</td><td class="w">Madera-ladrillo quiere abierto. OWS quiere cerrado. Podés forzarlo con tu colocación.</td></tr>
+    <tr><td class="w"><a href="#fav1">Favorece a P1/P2/P3/P4</a></td><td class="w">Contá los vértices premium: 1→P1, 2→P2, 3→P3, 4 o 0→P4.</td><td class="w">Si no tenés el premium, jugá asimétrico. Si elegís tarde, priorizá la <em>combinación</em>.</td></tr>
+    <tr><td class="w"><a href="#power">Power rolls</a></td><td class="w">Mismo número en recursos complementarios.</td><td class="w">Tomarlo, con un segundo par de respaldo, y sumar oveja para flexibilidad.</td></tr>
+    <tr><td class="w"><a href="#a-rare">Valor escaso</a></td><td class="w">Todo mediano, pero un vértice junta tres escasos.</td><td class="w">Tomarlo por encima del OWS obvio. Los hexágonos aislados valen doble.</td></tr>
+    <tr><td class="w"><a href="#a-shorting">Number shorting</a></td><td class="w">Abundancia aparente sostenida por un número flojo.</td><td class="w">Apostar contra números de 1–3 pips. Nunca contra 5, 6, 8, 9.</td></tr>
+    <tr><td class="w"><a href="#a-balanced">Balanceado</a></td><td class="w">Ninguna escasez que explotar.</td><td class="w">Crear la ventaja: shortear un número, o colocar para abrir el tablero y ganar carreras.</td></tr>
+  </tbody>
+</table>
+</div>
+
+<a class="top" href="#">↑ arriba</a>
+
+<h2 id="estrategias">12. Las estrategias, en detalle</h2>
+
+<h3>OWS (mineral-trigo-oveja)</h3>
+<p>La estrategia de referencia. Subís a ciudades y comprás cartas de desarrollo en masa. Camino típico: 2 asentamientos + 3 ciudades (8 PV) + ejército mayor (2 PV), o ciudades + cartas de PV.</p>
+<p><strong>El video la recomienda cuando:</strong> hay mucho ladrillo (#7), mucha madera-ladrillo (#13), poco OWS (#12), o el desierto está en el centro (#16). El patrón común: <strong>cuando los demás están ocupados peleando por espacio, el ejército mayor sale barato.</strong></p>
+<p><strong>La desaconseja cuando:</strong> hay un vértice de valor escaso mejor (#29), o cuando el tablero pide puertos y la ventana lo permite.</p>
+<p>Mazo de desarrollo (25 cartas): <strong>14 caballeros (56 %)</strong>, 5 PV (20 %), 2 construcción de carreteras, 2 año de la abundancia, 2 monopolio.</p>
+
+<h3>City + road (ciudades y carreteras)</h3>
+<p>La estrategia favorita del autor en tableros de mucha oveja (#5). Mineral, trigo, madera y ladrillo — <strong>salteando deliberadamente la oveja</strong>, porque la vas a poder comerciar siempre. Comprás ciudades <em>y</em> carreteras: puntos por ambas vías, y no dependés de una carrera de ejército que todos van a disputar.</p>
+
+<h3>Road builder (ruta más larga)</h3>
+<p>El video la eleva bastante por encima de su reputación, pero solo en tableros específicos:</p>
+<ul>
+  <li><strong>Poca oveja (#6):</strong> porque la ruta no necesita oveja, y porque <em>bajar carreteras no te pone en el radar</em>.</li>
+  <li><strong>Poca madera-ladrillo (#14):</strong> porque nadie te la disputa.</li>
+  <li><strong>OWS pesado (#11):</strong> porque todos están comprando cartas.</li>
+  <li><strong>Poco ladrillo (#8):</strong> como cierre — se gana con 5-7 carreteras y una carta de utilidad.</li>
+</ul>
+<p>Y la desaconseja fuertemente en tableros de mucho ladrillo (#7): «se va a 9, 10, 11 carreteras, y si no la ganás no sirve para nada».</p>
+
+<h3>Juego de puertos</h3>
+<p>Viable <strong>solo en tableros lentos</strong>. La regla del video es nítida: mucho mineral → el juego de puertos no llega a tiempo; poco mineral o poco trigo → el juego de puertos se vuelve eficiente. Ver la <a href="#puertos">sección 13</a>.</p>
+
+<h3>Cluster + puerto</h3>
+<p>Estrategia específica de los tableros de cluster (#15): si te metés en la concentración de un recurso, necesitás su puerto 2:1 o no podés convertir producción en nada.</p>
+
+<h3>Number shorting</h3>
+<p>La jugada de quien elige tarde sin premium disponible: apostar contra un número flojo y volverse el proveedor único de un recurso. Ver #30.</p>
+
+<a class="top" href="#">↑ arriba</a>
+
+<h2 id="puertos">13. Puertos: la jerarquía y la matemática</h2>
+
+<p>Hay <strong>9 puertos</strong>: cuatro 3:1 genéricos y cinco 2:1, uno por recurso. Están siempre en la costa, así que <strong>casi siempre cuestan pips</strong>.</p>
+
+<div class="box vid">
+  <span class="tag">Del video — la jerarquía general</span>
+  <p>«En general el puerto de mineral no es muy bueno. Preferirías un puerto de oveja, o de madera, o de trigo, porque <strong>hay solo cuatro de esos hexágonos y solo tres de mineral</strong>, y en general estás comerciando <em>para conseguir</em> mineral, no comerciando el mineral hacia afuera.»</p>
+</div>
+
+<p>El criterio es doble: <strong>abundancia estructural</strong> (4 hexágonos de bosque, pastura y sembradío contra 3 de montaña y colina) y <strong>dirección del comercio</strong> (querés vender lo que te sobra, no lo que necesitás).</p>
+
+<div class="scroll">
+<table>
+  <thead><tr><th class="w">Puerto 2:1</th><th class="w">Valoración</th><th class="w">Excepción</th></tr></thead>
+  <tbody>
+    <tr><td class="w">Oveja</td><td class="w">El mejor. Convierte excedente muerto en lo que necesites.</td><td class="w">—</td></tr>
+    <tr><td class="w">Madera</td><td class="w">Muy bueno, sobre todo con producción propia.</td><td class="w">En tableros de mucha madera funciona <em>incluso sin producirla</em>, por lo que te regalan en comercios.</td></tr>
+    <tr><td class="w">Ladrillo</td><td class="w">Muy bueno con producción propia.</td><td class="w">«Super bueno en un tablero de mucho ladrillo.»</td></tr>
+    <tr><td class="w">Trigo</td><td class="w">Dudoso: rara vez querés vender trigo.</td><td class="w">Solo con cluster de trigo y sobreproducción real.</td></tr>
+    <tr><td class="w">Mineral</td><td class="w">El peor por defecto.</td><td class="w"><strong>Se vuelve jugable en tableros de mucho mineral</strong> (#1).</td></tr>
+  </tbody>
+</table>
+</div>
 
 <div class="box warn">
-  <span class="tag">Error clásico</span>
-  <p>Elegir el segundo asentamiento con el mismo criterio que el primero — "el mejor lugar que queda" — sin mirar qué te falta. Terminás con 24 pips y sin ladrillo, mendigando comercios toda la partida.</p>
+  <span class="tag">La trampa del puerto sobre un número malo</span>
+  <p>Un puerto es tan bueno como el vértice donde está. El video descarta un puerto de trigo porque está sobre un ladrillo de 12: «no querés asentarte en este 12 muy temprano, <strong>porque es muy mala economía, y Catan es un juego económico</strong>». Un 12 produce 1 vez cada 36 tiradas. Ningún puerto compensa fundar sobre eso en la apertura.</p>
 </div>
 
-<h3>Las carreteras iniciales</h3>
+<h3>2:1 contra 3:1: la cuenta que decide</h3>
+<p>Ya está en la <a href="#port-math">sección 3</a>, pero vale repetirla porque es el argumento operativo: una ciudad pagada con excedente cuesta <strong>8 cartas con 2:1</strong> y <strong>11 con 3:1</strong>. Con el límite de descarte en 7, la diferencia es entre cruzar el umbral un turno o vivir arriba de él varios, con 17 % de riesgo por turno.</p>
 
-<p>La carretera que acompaña a cada asentamiento no es decorativa. Apuntala hacia:</p>
-<ul>
-  <li>El <strong>tercer lugar que querés ocupar</strong> (lo más común y lo más correcto).</li>
-  <li>Un <strong>puerto</strong> que quieras tomar.</li>
-  <li>Un <strong>cuello de botella</strong> del tablero: un istmo que, si lo cruzás primero, te da un sector entero.</li>
-</ul>
-<p>Si dos jugadores van al mismo vértice, gana el que llegue primero: la dirección de esa primera carretera es una declaración de intenciones y a veces conviene ocultarla o desviarla un turno.</p>
-
-<h3>Recursos iniciales</h3>
-<p>Recordá que el <strong>segundo</strong> asentamiento te da cartas de arranque (una por hexágono adyacente). Si estás entre dos lugares parecidos, el que te da un arranque más útil (ej. madera+ladrillo para carretera inmediata, o el tercer mineral que te deja a un paso de la ciudad) desempata.</p>
+<p>Cuándo el 3:1 sí es la respuesta: cuando el 2:1 que necesitás está mal ubicado o no existe, cuando tu producción es muy desbalanceada, o cuando el tablero es tan pobre que nadie tiene con qué comerciar. El video lo elige varias veces por esas razones.</p>
 
 <a class="top" href="#">↑ arriba</a>
 
-<h2 id="orden">5. El orden de colocación (ser P1 vs. ser P4)</h2>
+<h2 id="ritmo">14. Ritmo, radar y bloqueo</h2>
 
-<p>La colocación es en serpiente: <strong>1-2-3-4, después 4-3-2-1</strong>. Cada posición tiene una forma distinta de jugarse.</p>
+<p>Este es un tema transversal que el video trata mejor que la mayoría del material de Catan, y merece su propia sección.</p>
 
-<div class="scroll">
-<table>
-  <thead><tr><th>Pos.</th><th>Picks</th><th class="wrapcell">Cómo jugarla</th></tr></thead>
-  <tbody>
-    <tr><td>P1</td><td>1º y 8º</td><td class="wrapcell">Te llevás el mejor lugar del tablero, pero pasan 6 elecciones antes de tu segunda. Tomá el lugar más <strong>autosuficiente</strong> posible (3 recursos, mucha diversidad), porque no vas a poder planear el complemento. Ventaja extra: jugás primero toda la partida.</td></tr>
-    <tr><td>P2</td><td>2º y 7º</td><td class="wrapcell">La más incómoda. Solidez ante todo: no te enamores de un plan que depende de un lugar específico para tu segundo pick.</td></tr>
-    <tr><td>P3</td><td>3º y 6º</td><td class="wrapcell">Intermedia. Ya ves 2 elecciones antes de la tuya y podés empezar a leer qué recursos se están agotando.</td></tr>
-    <tr><td>P4</td><td>4º y 5º</td><td class="wrapcell">La más <strong>flexible</strong>: elegís dos veces seguidas con información completa. Podés armar una combinación coherente a propósito (puerto + producción, o los dos motores completos), o quedarte con el monopolio del recurso que todos ignoraron. La mejor posición para ejecutar una estrategia específica.</td></tr>
-  </tbody>
-</table>
+<h3>Estar bajo el radar</h3>
+<div class="box vid">
+  <span class="tag">Del video (11:02 y 11:28)</span>
+  <p>«El <em>pacing</em> se vuelve complicado, porque no podés simplemente comprar una carta de desarrollo para quedarte bajo el radar, sino que muchas veces tenés que bajar una ciudad porque tu mano se traba. <strong>Así que a veces tomás la delantera cuando todavía no querías.</strong>»</p>
+  <p>«Con la ruta más larga podés bajar una carretera si tenés demasiadas cartas. <strong>Si bajás una ciudad, la gente dice “bajó una ciudad” y empieza a bloquearte. Si bajás una carretera, a la gente no le importa tanto.</strong>»</p>
 </div>
 
+<p>Hay tres formas de gastar cartas, y difieren en cuánta atención atraen:</p>
+<ol>
+  <li><strong>Carretera</strong> — invisible. Nadie reacciona.</li>
+  <li><strong>Carta de desarrollo</strong> — casi invisible. Podría ser un PV, pero nadie lo sabe.</li>
+  <li><strong>Ciudad</strong> — máxima visibilidad. 2 PV en la mesa y el ladrón encima el turno siguiente.</li>
+</ol>
+
+<p>La consecuencia práctica: <strong>tu estrategia determina si podés controlar cuándo tomás la delantera</strong>. En un tablero de poca oveja no podés comprar cartas para "aparcar" recursos, así que te ves forzado a construir ciudades antes de querer hacerlo, y eso te pinta un blanco encima. Elegir una estrategia con salidas discretas (carreteras, cartas) es elegir control sobre el ritmo.</p>
+
+<h3>Ser un objetivo poco atractivo</h3>
 <div class="box key">
-  <span class="tag">Leer a los demás</span>
-  <p>Mirá qué recursos <strong>no</strong> están tomando los otros. Si los tres primeros se cargaron de mineral y trigo, agarrar el ladrillo y la madera bien numerados te convierte en el proveedor obligado de todo el mundo: vas a poder cobrar 2:1 en cada comercio y expandirte sin competencia.</p>
+  <span class="tag">El principio defensivo</span>
+  <p>Del arquetipo OWS pesado (#11): «o te protegés de eso, o <strong>armás tu setup de manera tal que bloquearte a vos no sea tan eficiente como robarle a otro</strong>».</p>
+  <p>El ladrón es un recurso escaso que se asigna al objetivo más rentable. No necesitás ser invulnerable; necesitás que haya alguien más jugoso que vos. Tener producción diversificada en varios hexágonos, en vez de concentrada en un 6, hace que bloquearte sea ineficiente y desvía el ladrón hacia otro lado.</p>
 </div>
 
-<a class="top" href="#">↑ arriba</a>
-
-<h2 id="arquetipos">6. Los arquetipos de estrategia</h2>
-
-<h3>A. Mineral–Trigo (ciudades y desarrollo)</h3>
-<p><strong>Cómo se ve:</strong> fundación con mineral y trigo bien numerados, idealmente oveja también.<br>
-<strong>Plan:</strong> subir tus dos asentamientos a ciudades lo antes posible (cada una son 2 PV y duplica producción), después comprar cartas de desarrollo en masa: caballeros para el Ejército Mayor (2 PV) y cartas de PV escondidas.<br>
-<strong>Fuerte cuando:</strong> hay 6/8 sobre montaña y sembradío; el tablero es cerrado (pocos lugares libres para expandirse).<br>
-<strong>Debilidad:</strong> arranque lentísimo, casi no te expandís, y si el ladrón se planta en tu mineral quedás paralizado. Además necesitás madera/ladrillo o un puerto para el 3º asentamiento.<br>
-<strong>Camino a 10 PV típico:</strong> 2 asentamientos + 3 ciudades (8 PV) + Ejército Mayor (2 PV), o 4 ciudades + cartas de PV.</p>
-
-<h3>B. Madera–Ladrillo (expansión)</h3>
-<p><strong>Cómo se ve:</strong> fundación con bosque y colina bien numerados, con trigo y oveja como apoyo.<br>
-<strong>Plan:</strong> construir carreteras y asentamientos rápido, ocupar los mejores vértices libres antes que nadie, y de paso quedarte con la Ruta Comercial Más Larga (2 PV).<br>
-<strong>Fuerte cuando:</strong> el tablero es abierto (muchos vértices de 10+ pips sin dueño) y hay muchos jugadores compitiendo por espacio.<br>
-<strong>Debilidad:</strong> se ahoga alrededor de los 6-7 PV. Los asentamientos solos no llegan a 10 (solo hay 5 por jugador). En algún momento <strong>hay</strong> que conseguir mineral y trigo para hacer ciudades — el plan tiene que incluir cómo.<br>
-<strong>Camino a 10 PV típico:</strong> 5 asentamientos + 1-2 ciudades + Ruta Más Larga.</p>
-
-<h3>C. Balanceada</h3>
-<p>Acceso a los cinco recursos con números decentes. Nunca estás bloqueado, siempre podés construir algo, y sos el socio comercial preferido de todos. Rara vez explota, casi nunca colapsa. Es la estrategia por defecto cuando el tablero no te ofrece nada extremo, y es muy buena en partidas donde los demás se pelean.</p>
-
-<h3>D. Puerto / conversión</h3>
-<p>Producir mucho de un recurso y tener el puerto 2:1 correspondiente. Un asentamiento con dos hexágonos de oveja (6 y 9) más el puerto 2:1 de oveja es efectivamente una máquina de imprimir el recurso que necesites. Funciona igual con madera o ladrillo. Ver la sección <a href="#puertos">8</a>.</p>
-
-<h3>E. Cartas de desarrollo / Ejército Mayor</h3>
-<p>Necesitás <strong>trigo + oveja + mineral</strong>. El mazo del juego base tiene 25 cartas:</p>
-<div class="scroll">
-<table>
-  <thead><tr><th class="wrapcell">Carta</th><th class="num">Cant.</th><th class="num">Prob.</th></tr></thead>
-  <tbody>
-    <tr><td class="wrapcell">Caballero</td><td class="num">14</td><td class="num">56 %</td></tr>
-    <tr><td class="wrapcell">Punto de Victoria</td><td class="num">5</td><td class="num">20 %</td></tr>
-    <tr><td class="wrapcell">Construcción de carreteras</td><td class="num">2</td><td class="num">8 %</td></tr>
-    <tr><td class="wrapcell">Año de la abundancia</td><td class="num">2</td><td class="num">8 %</td></tr>
-    <tr><td class="wrapcell">Monopolio</td><td class="num">2</td><td class="num">8 %</td></tr>
-  </tbody>
-</table>
-</div>
-<p>Más de la mitad de las cartas son caballeros, así que comprar cartas es una vía razonablemente fiable al Ejército Mayor (2 PV con 3 caballeros jugados, y te lo pueden robar con más). El 20 % de PV directos hace que comprar cartas sea, además, la forma más silenciosa de ganar: <strong>los rivales no ven esos puntos venir</strong>.</p>
-
-<h3>F. Ruta Comercial Más Larga</h3>
-<p>2 PV por 5 carreteras continuas. <strong>No es un plan A</strong>: cada carretera cuesta 2 recursos y no produce nada. Es un excelente plan B (si ya estás construyendo carreteras para expandirte, los 2 PV vienen de regalo) y una gran jugada de cierre. Es robable, así que nunca cuentes con esos 2 PV como definitivos — y guardá una carta de Construcción de Carreteras para robarla en el turno final.</p>
-
-<a class="top" href="#">↑ arriba</a>
-
-<h2 id="tablero">7. Cómo varía la estrategia según el tablero</h2>
-
-<p>Esta es la sección más importante después de la probabilidad. <strong>No hay una estrategia óptima de Catan; hay una estrategia óptima para cada tablero.</strong> El método es siempre el mismo:</p>
-
-<div class="box key">
-  <span class="tag">Diagnóstico del tablero en 5 pasos (antes de fundar)</span>
-  <ol>
-    <li><strong>Sumá los pips por recurso.</strong> Para cada uno de los cinco recursos, sumá los pips de todos sus hexágonos. Te quedan cinco números.</li>
-    <li><strong>Identificá el recurso rey:</strong> el que tenga <em>menos</em> pips totales. Ese va a ser el más caro de la partida.</li>
-    <li><strong>Ubicá los 6 y los 8</strong> y fijate sobre qué recursos cayeron. Eso define qué motor está "encendido" en este tablero.</li>
-    <li><strong>Mapeá los puertos</strong> y buscá si alguno queda cerca de producción abundante del mismo recurso.</li>
-    <li><strong>Contá los vértices de 11+ pips</strong> y dónde están. Muchos y repartidos = partida de expansión. Pocos y concentrados = partida de ciudades y de bloqueo.</li>
-  </ol>
-</div>
-
-<h3>Referencia: cuánto es "normal" por recurso</h3>
-<p>Con 58 pips repartidos en 18 hexágonos, un recurso de 4 hexágonos "debería" tener ~13 pips y uno de 3 hexágonos (ladrillo, mineral) ~10. Compará contra eso.</p>
-
-<div class="scroll">
-<table>
-  <thead><tr><th class="wrapcell">Lo que ves</th><th class="wrapcell">Lo que significa</th><th class="wrapcell">Qué hacer</th></tr></thead>
-  <tbody>
-    <tr>
-      <td class="wrapcell"><strong>Mineral con pocos pips</strong> (ej. 3, 4, 11)</td>
-      <td class="wrapcell">Las ciudades van a ser lentísimas para todos. La partida se define por territorio.</td>
-      <td class="wrapcell">Jugá expansión (madera-ladrillo), tomá muchos asentamientos y la Ruta Más Larga. Si además conseguís el poco mineral que hay, sos el único que puede hacer ciudades.</td>
-    </tr>
-    <tr>
-      <td class="wrapcell"><strong>Mineral con 6 y/o 8</strong></td>
-      <td class="wrapcell">Carrera a ciudades. La partida va a ser corta y vertical.</td>
-      <td class="wrapcell">Tenés que estar en ese mineral, o tener el monopolio total del otro motor para poder comerciar desde la fuerza. No te quedes en el medio.</td>
-    </tr>
-    <tr>
-      <td class="wrapcell"><strong>Ladrillo con pocos pips</strong></td>
-      <td class="wrapcell">Cuello de botella brutal: nadie se expande.</td>
-      <td class="wrapcell">Asegurate ladrillo aunque te cueste pips. Vas a cobrar peaje toda la partida. Si no lo conseguís, andá directo a ciudades y cartas (que no usan ladrillo).</td>
-    </tr>
-    <tr>
-      <td class="wrapcell"><strong>Trigo con pocos pips</strong></td>
-      <td class="wrapcell">El escenario más asfixiante: el trigo entra en todo.</td>
-      <td class="wrapcell">Prioridad absoluta al trigo en la fundación, por encima de los pips totales.</td>
-    </tr>
-    <tr>
-      <td class="wrapcell"><strong>Los 6 y 8 están todos juntos</strong></td>
-      <td class="wrapcell">Sector de oro, pero imán de ladrón.</td>
-      <td class="wrapcell">Vale la pena pelearlo, pero diversificá tu segundo asentamiento lejos de ahí, y esperá tener el ladrón encima buena parte de la partida.</td>
-    </tr>
-    <tr>
-      <td class="wrapcell"><strong>Números altos y bajos mezclados por todos lados</strong></td>
-      <td class="wrapcell">Tablero parejo, sin lugares dominantes.</td>
-      <td class="wrapcell">Estrategia balanceada y comercio. Gana quien juegue mejor la fase media, no quien fundó mejor.</td>
-    </tr>
-    <tr>
-      <td class="wrapcell"><strong>Desierto en el centro con buenos números alrededor</strong></td>
-      <td class="wrapcell">Los vértices centrales pierden un hexágono.</td>
-      <td class="wrapcell">El centro se devalúa; los lugares costeros y los puertos suben de valor.</td>
-    </tr>
-  </tbody>
-</table>
-</div>
-
-<h3>La escasez también la crean los jugadores</h3>
-<p>Un recurso con muchos pips en el tablero puede volverse escaso <em>en la práctica</em> si un solo jugador lo tiene todo, o abundante si tres jugadores lo producen. Después de la fundación, rehacé el conteo pero <strong>por jugador</strong>: cuántos pips de cada recurso controla cada uno. Eso te dice quién va a necesitarte y a quién no le vas a poder vender nada.</p>
-
-<a class="top" href="#">↑ arriba</a>
-
-<h2 id="puertos">8. Puertos: cuándo valen y cuándo son una trampa</h2>
-
-<p>Hay <strong>9 puertos</strong>: cuatro genéricos <strong>3:1</strong> y cinco <strong>2:1</strong>, uno por recurso.</p>
-
-<div class="box">
-  <span class="tag">El trade-off</span>
-  <p>Los puertos están siempre en la costa, y los vértices costeros tocan menos hexágonos (a veces solo dos). <strong>Un puerto casi siempre te cuesta pips.</strong> Solo vale la pena si la conversión que te da supera esa pérdida de producción.</p>
-</div>
-
-<h3>Cuándo un 2:1 es excelente</h3>
+<h3>El ladrón, en general</h3>
 <ul>
-  <li>Cuando tenés <strong>dos o más hexágonos de ese recurso con buenos números</strong>. Un solo hexágono no alcanza para alimentarlo.</li>
-  <li>Cuando el recurso es uno que <strong>te sobra estructuralmente</strong>: oveja, casi siempre; madera o ladrillo, una vez que dejaste de expandirte.</li>
-  <li>Cuando te libera de negociar: en partidas donde todos se bloquean comercialmente, el puerto es tu independencia.</li>
-</ul>
-
-<h3>Cuándo un 2:1 es una trampa</h3>
-<ul>
-  <li><strong>Puerto de trigo o de mineral:</strong> son los recursos que nunca querés vender. Suele ser un puerto muerto.</li>
-  <li><strong>Puerto sin producción propia</strong> del recurso: dos hexágonos de oveja con 2 y 12 no alimentan nada.</li>
-  <li>Cuando el vértice del puerto es tan pobre en pips que tu motor completo se resiente.</li>
-</ul>
-
-<h3>El 3:1 genérico</h3>
-<p>Es un seguro, no un motor. Brilla en dos casos: cuando tenés una producción <strong>muy desbalanceada</strong> (mucho de un recurso, poco de otros) y no existe el 2:1 correspondiente accesible; y en tableros pobres donde nadie tiene con qué comerciar. Contra el 4:1 del banco, ahorra un 25 % en cada operación — significativo pero no transformador.</p>
-
-<div class="box key">
-  <span class="tag">Ranking práctico de puertos 2:1</span>
-  <p><strong>Oveja</strong> (el mejor por lejos) &gt; <strong>Madera</strong> ≈ <strong>Ladrillo</strong> (muy buenos si los tenés con números fuertes) &gt; <strong>Trigo</strong> &gt; <strong>Mineral</strong> (casi siempre malos).</p>
-</div>
-
-<a class="top" href="#">↑ arriba</a>
-
-<h2 id="fases">9. Las tres fases de la partida</h2>
-
-<h3>Apertura (aprox. turnos 1–12)</h3>
-<ul>
-  <li>Objetivo único: <strong>llegar al tercer y cuarto asentamiento rápido</strong>. Cada asentamiento nuevo es 1 PV y un aumento permanente de producción.</li>
-  <li>Casi todo lo que produzcas se convierte en carreteras y casas.</li>
-  <li>Comerciá generosamente: en esta fase todos ganan con el intercambio y necesitás velocidad.</li>
-  <li>No compres cartas de desarrollo salvo que estés en la estrategia E.</li>
-  <li>Ocupá primero los lugares <strong>disputados</strong>, no los que nadie te va a sacar.</li>
-</ul>
-
-<h3>Fase media (aprox. turnos 12–35)</h3>
-<ul>
-  <li>Transición: dejás de expandirte y empezás a <strong>convertir producción en puntos</strong> — ciudades y cartas.</li>
-  <li>Las ciudades son casi siempre la mejor inversión: 2 PV y el doble de producción por 5 cartas.</li>
-  <li>Acá se define la partida. Si tu motor de expansión ya no tiene dónde crecer, tenés que haber conseguido mineral y trigo.</li>
-  <li>Empezá a contar los puntos de todos, incluidos los que podrían estar ocultos en cartas.</li>
-  <li>El comercio se vuelve político: dejás de comerciar con quien va ganando.</li>
-</ul>
-
-<h3>Final (7+ PV de alguien)</h3>
-<ul>
-  <li><strong>Contá los puntos de todos en voz baja, cada turno.</strong> Asumí que quien compró 4 cartas de desarrollo tiene 1 PV oculto.</li>
-  <li>El comercio prácticamente se cierra. Nadie le da nada al líder.</li>
-  <li>Priorizá los puntos que <strong>nadie puede ver ni impedir</strong>: cartas de PV, y el Ejército Mayor / Ruta Más Larga tomados en un solo turno explosivo.</li>
-  <li>Guardá cartas de desarrollo sin jugar para poder cerrar de golpe: un turno con dos caballeros + una carta de PV es un final de 3-4 PV que nadie vio venir.</li>
-  <li>Si no podés ganar, elegí <strong>a quién dejás ganar</strong>: usá ladrón y comercio para frenar al que está más cerca.</li>
-</ul>
-
-<a class="top" href="#">↑ arriba</a>
-
-<h2 id="ladron">10. Ladrón, comercio y cartas de desarrollo</h2>
-
-<h3>El ladrón</h3>
-<ul>
-  <li><strong>Siempre al que va ganando</strong>, salvo razón táctica muy concreta. Poner el ladrón "al que me robó la última vez" es regalar la partida.</li>
-  <li>Poné el ladrón sobre <strong>su mejor número, del recurso que más necesita</strong> — no sobre cualquier hexágono suyo. Bloquear el 6 de mineral del que va a hacer ciudades vale mucho más que bloquear su 4 de oveja.</li>
-  <li>Ideal: un hexágono que toque al líder <strong>y también a otro rival fuerte</strong>, pero no a vos.</li>
-  <li>Nunca lo dejes en el desierto salvo que estés obligado. Es desperdiciar la mitad del efecto.</li>
-  <li>Si el líder tiene ciudades, el hexágono que toca sus ciudades vale doble.</li>
+  <li>Siempre al que va ganando, sobre su <strong>mejor número del recurso que más necesita</strong> — no sobre cualquier hexágono suyo.</li>
+  <li>Ideal: un hexágono que toque al líder y a otro rival fuerte, pero no a vos.</li>
+  <li>Si el líder tiene ciudades, el hexágono que las toca vale doble.</li>
+  <li>El video agrega un uso ofensivo en tableros de mucho ladrillo: mientras todos pelean espacio, «podés dominar el tablero poniendo ladrones por todos lados».</li>
 </ul>
 
 <h3>Comercio</h3>
 <ul>
-  <li><strong>Regla número uno:</strong> nunca le des a nadie la carta que le permite ganar <em>este turno</em>. Antes de aceptar cualquier trato, contá qué puede construir con eso.</li>
-  <li>Sobreprecio al líder, descuento al último. Mantener la partida pareja es lo que te da tiempo.</li>
-  <li>Preferí comerciar con jugadores antes que con el banco: 2:1 con alguien es mejor que 4:1 con el banco, aunque le estés dando algo útil.</li>
-  <li>Ofrecé comercios que te convengan pero que <em>suenen</em> favorables al otro. Pedir el recurso que sobra a alguien es más fácil que pedir el que le falta.</li>
-  <li>Si te dicen que no, preguntá qué necesitan. Mucha gente rechaza por reflejo.</li>
+  <li><strong>Nunca le des a nadie la carta con la que gana este turno.</strong> Contá antes de aceptar.</li>
+  <li>Sobreprecio al líder, descuento al último.</li>
+  <li>El truco del video para tableros de mucha madera: pedí que te <strong>agreguen</strong> una carta del recurso abundante, «que probablemente no necesitan igual», y después la puerteás.</li>
+  <li><strong>Los acuerdos sobre el tablero existen.</strong> Ver el ejemplo del puerto de trigo en #15: se puede negociar quién se queda un puerto a cambio de recursos o de no bloquear.</li>
 </ul>
 
 <h3>Cartas de desarrollo</h3>
 <ul>
-  <li><strong>Caballero:</strong> juega uno antes de tirar si sospechás que el ladrón te está frenando. Acumular caballeros sin jugarlos no da Ejército Mayor — hay que <em>jugarlos</em>.</li>
-  <li><strong>Monopolio:</strong> guardala. Su valor sube cuando los demás acumulan. Usala cuando puedas llevarte 5+ cartas del mismo tipo, idealmente justo antes de que alguien construya. El mejor momento suele ser tras una ronda con muchas tiradas de un recurso.</li>
-  <li><strong>Construcción de carreteras:</strong> vale 4 recursos. Úsala para llegar a un vértice disputado antes que el rival, o para robar la Ruta Más Larga en el turno de cierre.</li>
-  <li><strong>Año de la abundancia:</strong> perfecta para completar exactamente una ciudad o un asentamiento el mismo turno. No la gastes en cartas genéricas.</li>
-  <li><strong>PV:</strong> se revelan al ganar. Mantenelas ocultas y no dejes que se te note que estás cerca.</li>
+  <li><strong>Caballero:</strong> jugalo <em>antes</em> de tirar si el ladrón te está frenando. El ejército mayor cuenta caballeros <em>jugados</em>.</li>
+  <li><strong>Monopolio:</strong> guardalo. Y ojo con el aviso de #2: en tableros de poco mineral, la gente tira el monopolio sobre mineral, así que acumular mineral en la mano es riesgoso.</li>
+  <li><strong>Construcción de carreteras:</strong> vale 4 recursos. Es la carta que roba la ruta más larga en el turno de cierre — y en tableros de poco ladrillo (#8) es <em>la</em> vía para ganar con ejército y ruta al mismo tiempo.</li>
+  <li><strong>Año de la abundancia:</strong> para completar exactamente una ciudad. En tableros de poca oveja (#6) es una de las mejores cartas del mazo.</li>
+  <li><strong>PV:</strong> son el 20 % del mazo y no se anuncian. Es la forma más silenciosa de ganar.</li>
 </ul>
 
 <a class="top" href="#">↑ arriba</a>
 
-<h2 id="errores">11. Errores comunes que hay que evitar</h2>
+<h2 id="errores">15. Errores comunes</h2>
 
+<h3>Los que el video señala explícitamente</h3>
 <ol>
-  <li><strong>Perseguir pips ignorando la diversidad.</strong> 14 pips en dos recursos suele ser peor que 11 en tres.</li>
-  <li><strong>Fundar sin madera ni ladrillo.</strong> Te quedás sin poder construir carreteras ni asentamientos: quedás encerrado en tus dos casas iniciales toda la partida.</li>
-  <li><strong>Fundar sin trigo.</strong> El trigo entra en asentamientos, ciudades y cartas. Sin trigo no hay juego.</li>
-  <li><strong>Sobrevalorar la oveja.</strong> Es el recurso de menor demanda. Dos hexágonos de oveja sin puerto es producción muerta.</li>
-  <li><strong>Tomar un puerto sin producción que lo alimente.</strong> Un puerto 2:1 de un recurso que casi no producís no hace nada, y pagaste pips por él.</li>
-  <li><strong>No planear el tercer asentamiento.</strong> Fundar en un lugar sin salida y descubrir en el turno 10 que no tenés dónde crecer.</li>
-  <li><strong>Poner las carreteras iniciales sin dirección.</strong> Cada carretera debería apuntar a algo concreto.</li>
-  <li><strong>Repetir números entre los dos asentamientos.</strong> Concentra la varianza y te hace vulnerable a un solo ladrón.</li>
-  <li><strong>Quedarse con 8+ cartas.</strong> El 7 sale 1 de cada 6 tiradas. Gastá o comerciá antes de terminar el turno.</li>
-  <li><strong>Descartar mal en el 7.</strong> Descartá lo que menos te frena <em>según tu próxima construcción concreta</em>, no "lo que más tengo".</li>
-  <li><strong>Comerciar 4:1 con el banco por costumbre.</strong> Casi siempre hay un trato mejor en la mesa; probá primero.</li>
-  <li><strong>Ayudar al líder.</strong> El error más caro y el más frecuente. Antes de cada trato: ¿esto lo acerca a ganar?</li>
-  <li><strong>No contar los puntos de los rivales.</strong> Perder por 1 PV oculto que se veía venir cinco turnos antes.</li>
+  <li><strong>Jugar siempre la misma estrategia.</strong> El error madre. La respuesta correcta depende del arquetipo, y el <code>6-5-9</code> solo es la mejor jugada en algunos tableros.</li>
+  <li><strong>Tomar el spot OWS por reflejo.</strong> Textual: «muchos jugadores irían al <code>6-9-3</code> pensando “eh, OWS, esto es mejor”» — cuando el vértice de valor escaso era claramente superior.</li>
+  <li><strong>Elegir por pips en vez de por comerciabilidad.</strong> El autor toma varias veces spots de menor producción porque lo que producen se puede convertir en cualquier cosa.</li>
+  <li><strong>Fundar sobre un número pésimo para conseguir un puerto.</strong> «Es muy mala economía, y Catan es un juego económico.»</li>
+  <li><strong>Tomar un puerto sin producción que lo alimente</strong> — o el puerto equivocado: uno del recurso que <em>necesitás</em> en vez del que te sobra.</li>
+  <li><strong>Elegir el primer asentamiento sin pensar en el segundo.</strong> Hay que elegir hacia atrás, desde lo que va a quedar libre.</li>
+  <li><strong>Apostar todo a una sola rama.</strong> Elegí el vértice que funciona con las dos opciones posibles, no el óptimo de una sola.</li>
+  <li><strong>Apuntar las carreteras iniciales sin mirar quién puede cortarte</strong>, sobre todo en tableros de carreteras de arranque.</li>
+  <li><strong>Correr carreras de carreteras que podés perder.</strong> «La gente te sorprende y podés perder esas batallas.»</li>
+  <li><strong>Shortear un número frecuente.</strong> «Es muy mala idea tratar de shortear un nueve.»</li>
+  <li><strong>Meterse en un cluster sin el puerto.</strong> No se gana la partida a puro trigo.</li>
+  <li><strong>Perseguir la ruta más larga en un tablero de mucho ladrillo</strong>, donde cuesta 9-11 carreteras y no ganarla no sirve de nada.</li>
+  <li><strong>Bajar una ciudad cuando no querías tomar la delantera.</strong> Problema de ritmo, no de recursos.</li>
+  <li><strong>Acumular mineral en la mano en un tablero de poco mineral</strong>, donde el monopolio va a caer justo ahí.</li>
+</ol>
+
+<h3>Los fundamentales</h3>
+<ol start="15">
+  <li><strong>Fundar sin trigo.</strong> Entra en tres de las cuatro construcciones.</li>
+  <li><strong>Fundar sin madera ni ladrillo</strong> y no poder expandirse nunca.</li>
+  <li><strong>Repetir números entre los dos asentamientos</strong> — salvo que sea un power roll deliberado con respaldo.</li>
+  <li><strong>Quedarse con 8+ cartas.</strong> El 7 sale 1 de cada 6 tiradas.</li>
+  <li><strong>Comerciar 4:1 con el banco por costumbre</strong> sin probar la mesa primero.</li>
+  <li><strong>Ayudar al líder.</strong> El error más caro y más frecuente.</li>
+  <li><strong>No contar los puntos de los rivales</strong>, incluidos los ocultos: si alguien compró 4 cartas, asumí 1 PV escondido.</li>
   <li><strong>Poner el ladrón por venganza</strong> en vez de por cálculo.</li>
-  <li><strong>Ir por la Ruta Más Larga como plan principal.</strong> Carreteras que no llevan a ningún asentamiento son recursos quemados, y son 2 PV robables.</li>
-  <li><strong>Acumular caballeros sin jugarlos.</strong> El Ejército Mayor cuenta caballeros <em>jugados</em>.</li>
-  <li><strong>Expandirse a un lugar malo "para hacer algo".</strong> Un asentamiento de 5 pips cuesta 4 recursos que podrían ser media ciudad. A veces conviene esperar un turno.</li>
-  <li><strong>Ignorar la escasez del tablero.</strong> No hacer el conteo de pips por recurso antes de fundar es jugar a ciegas.</li>
-  <li><strong>Retrasar demasiado las ciudades.</strong> Duplicar producción temprano compone: cada turno que la demorás pierde valor para siempre.</li>
-  <li><strong>Anunciar tu plan.</strong> Si decís "me faltan 2 minerales para la ciudad", acabás de fijar el precio del mineral y la posición del ladrón.</li>
+  <li><strong>Acumular caballeros sin jugarlos.</strong></li>
+  <li><strong>Anunciar tu plan.</strong> Decir «me faltan 2 minerales» fija el precio del mineral y la posición del ladrón.</li>
 </ol>
 
 <a class="top" href="#">↑ arriba</a>
 
-<h2 id="checklist">12. Checklist rápido de fundación</h2>
+<h2 id="checklist">16. Checklist de fundación</h2>
 
 <div class="box key">
-  <span class="tag">Antes de poner la primera casa</span>
+  <span class="tag">Paso 1 — Clasificar el tablero (las 7 capas)</span>
   <ol>
-    <li>¿Sumé los pips de cada recurso en todo el tablero? ¿Cuál es el más escaso?</li>
-    <li>¿Dónde están los 6 y los 8, y sobre qué recursos?</li>
-    <li>¿Cuántos vértices de 11+ pips hay? ¿El tablero es de expansión o de ciudades?</li>
-    <li>¿Qué puertos hay y cuáles tienen producción real cerca?</li>
-    <li>¿Qué posición de turno tengo, y cuántas elecciones pasan hasta mi segunda?</li>
+    <li><strong>Pips por recurso.</strong> Sumá los pips de cada tipo. Referencia: ~13 para los de 4 hexágonos, ~10 para ladrillo y mineral. ¿Cuál está por debajo?</li>
+    <li><strong>Los pares.</strong> ¿Sobra mineral (→ sube el trigo)? ¿Sobra ladrillo (→ sube la madera)? Aplicá oferta y demanda.</li>
+    <li><strong>Geometría.</strong> ¿Dónde está el desierto: centro, segundo anillo o exterior? ¿Hay clusters? ¿Hay spots costeros fuertes?</li>
+    <li><strong>Puertos.</strong> ¿Cuáles hay, sobre qué números están, y hay producción real al lado de alguno?</li>
+    <li><strong>Power rolls.</strong> ¿Hay números repetidos entre mineral y trigo, o entre madera y ladrillo?</li>
+    <li><strong>Shorting.</strong> ¿Hay un recurso cuya abundancia depende de un número de 1–3 pips?</li>
+    <li><strong>Posición.</strong> ¿Cuántos vértices premium hay? ¿A quién favorece el tablero, y coincide con tu turno?</li>
   </ol>
 </div>
 
 <div class="box key">
-  <span class="tag">Antes de poner la segunda casa</span>
+  <span class="tag">Paso 2 — Antes de la primera casa</span>
   <ol>
-    <li>¿Qué recursos me faltan de los cinco? ¿Tengo los dos motores o solo uno?</li>
-    <li>¿Estoy repitiendo números? ¿Estoy demasiado concentrado en un hexágono?</li>
-    <li>¿Sumo 22+ pips entre las dos?</li>
-    <li>¿Hacia dónde va mi tercer asentamiento, y cuántas carreteras me cuesta?</li>
-    <li>¿Qué recurso quedó sin dueño en la mesa? ¿Puedo ser el monopolista?</li>
-    <li>¿Este lugar le duele a alguien?</li>
+    <li>¿Qué estrategia pide este arquetipo? ¿El tablero es rápido o lento?</li>
+    <li>¿Qué va a quedar libre cuando me toque de nuevo? ¿Cuántas elecciones pasan?</li>
+    <li>¿Cuál es el vértice que mejor <em>combina</em> con eso — no el que más pips tiene?</li>
+    <li>¿Funciona en las dos ramas posibles, o estoy apostando a una sola?</li>
+    <li>¿Alguno de mis hexágonos está aislado (nadie más puede tocarlo)?</li>
+  </ol>
+</div>
+
+<div class="box key">
+  <span class="tag">Paso 3 — Antes de la segunda casa</span>
+  <ol>
+    <li>¿Qué recursos me faltan? ¿Tengo los dos motores o solo uno?</li>
+    <li>¿Sumo 22+ pips? ¿Estoy repitiendo números sin querer?</li>
+    <li>¿Este asentamiento me da carretera de arranque? ¿A quién puedo cortar con ella?</li>
+    <li>¿Mi colocación deja el tablero abierto o cerrado, y cuál me conviene?</li>
+    <li>¿Qué recurso quedó huérfano en la mesa? ¿Puedo ser el proveedor único?</li>
+    <li>¿Hacia dónde apunto las carreteras, y quién puede llegar antes?</li>
   </ol>
 </div>
 
 <a class="top" href="#">↑ arriba</a>
 
-<h2 id="formato">13. Cómo describirme un tablero</h2>
+<h2 id="formato">17. Cómo describirme un tablero</h2>
 
-<p>Para analizar una partida concreta, mandame el tablero en este formato (o una foto). El tablero estándar tiene 5 filas de 3-4-5-4-3 hexágonos:</p>
+<p>Mandame el tablero en este formato, o una foto. El tablero estándar tiene 5 filas de 3-4-5-4-3:</p>
 
 <pre><code>Fila A (3):  A1  A2  A3
 Fila B (4): B1  B2  B3  B4
@@ -659,7 +1158,7 @@ Fila C (5): C1 C2 C3 C4 C5
 Fila D (4): D1  D2  D3  D4
 Fila E (3):  E1  E2  E3</code></pre>
 
-<p>Códigos de recurso: <code>MAD</code> madera, <code>LAD</code> ladrillo, <code>OVE</code> oveja, <code>TRI</code> trigo, <code>MIN</code> mineral, <code>DES</code> desierto.</p>
+<p>Códigos: <code>MAD</code> madera, <code>LAD</code> ladrillo, <code>OVE</code> oveja, <code>TRI</code> trigo, <code>MIN</code> mineral, <code>DES</code> desierto.</p>
 
 <p><strong>Ejemplo:</strong></p>
 <pre><code>A1 MAD 11 | A2 OVE 12 | A3 TRI 9
@@ -669,15 +1168,15 @@ D1 OVE 9 | D2 MAD 10 | D3 TRI 8 | D4 MIN 11
 E1 LAD 3 | E2 OVE 6 | E3 MAD 2
 
 Puertos: 2:1 oveja arriba de A1-A2 | 3:1 al lado de B4 |
-2:1 mineral abajo de E1 | 3:1 al lado de C5</code></pre>
+2:1 mineral abajo de E1 | 3:1 al lado de C5
 
-<p>Decime también <strong>cuántos jugadores son y en qué posición de turno estás</strong> (P1 a P4). Con eso te doy los mejores vértices, la estrategia recomendada y el plan de expansión.</p>
+Jugadores: 4 | Mi posición: P2</code></pre>
 
-<p>Después, a medida que avance la partida, contame qué va pasando (qué fundaron los demás, qué números están saliendo, quién tiene qué) y voy ajustando el plan.</p>
+<p>Con eso hago la clasificación en 7 capas, te digo el arquetipo (o la combinación de arquetipos), los mejores vértices para tu posición y el plan de expansión. Después, a medida que avance la partida, contame qué fundaron los demás, qué números están saliendo y quién tiene qué, y vamos ajustando.</p>
 
 <footer>
   <p>Guía de estrategia de Catan — archivo autónomo, sin recursos externos.<br>
-  Basada en estrategia general del juego base. Pendiente de incorporar el contenido del video de YouTube (no accesible desde esta sesión por política de red).</p>
+  Construida sobre el análisis de la transcripción de un video de estrategia (taxonomía de ~37 arquetipos de tablero), complementada con probabilidad y fundamentos del juego base.</p>
 </footer>
 
 </div>
